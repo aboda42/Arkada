@@ -135,7 +135,7 @@ document.getElementById("enemyName").innerHTML = ("<em>" + enemyShip1.nazev + "<
 
 
 
-//<------------------------------Easteregg se jménem-------------------------------->
+//<------------------------------Easteregg------------------------------------------>
 
 document.getElementById("reloadButton").style.display = "none";
 
@@ -173,7 +173,7 @@ function jaJaAJenomJa() {
     }
 }
 
-//<-------------------------Konec eastereggu se jménem------------------------------>
+//<-------------------------Konec eastereggu---------------------------------------->
 
 
 
@@ -183,33 +183,74 @@ function jaJaAJenomJa() {
 //<--------------------------Canvas------------------------------------------------->
 
 var mySpaceShip, enemySpaceShip;
+
 var levaStena, pravaStena, horniStena, spodniStena;
+
 var strelaPole = [];
-var strelaShipPole = [];
-var m = 0;
 var n = 0;
 strelaPole[n] = ("strela" + n);
-strelaShipPole[m] = ("strelaShip" + m);
 var strelaAngle = [];
+strelaAngle[n] = 100;
+
+var strelaShipPole = [];
+var m = 0;
+strelaShipPole[m] = ("strelaShip" + m);
 var strelaShipAngle = [];
+strelaShipAngle[m] = 100;
+
+var meteorite = [];
+var numberOfMeteorites = 0;
+meteorite[numberOfMeteorites] = ("meteorite" + numberOfMeteorites);
+var meteoriteAngle = [];
+meteoriteAngle[numberOfMeteorites] = 180 * Math.PI / 180;
+var meteoriteCreation = [true];
+
+var meteorite2 = [];
+var numberOfMeteorites2 = 0;
+meteorite2[numberOfMeteorites2] = ("meteorite2" + numberOfMeteorites2);
+var meteoriteAngle2 = [];
+meteoriteAngle2[numberOfMeteorites2] = 180 * Math.PI / 180;
+var meteoriteCreation2 = [true];
+
+var meteorite3 = [];
+var numberOfMeteorites3 = 0;
+meteorite3[numberOfMeteorites3] = ("meteorite3" + numberOfMeteorites3);
+var meteoriteAngle3 = [];
+meteoriteAngle3[numberOfMeteorites3] = Math.PI / 180;
+var meteoriteCreation3 = [true];
+
+var meteorite4 = [];
+var numberOfMeteorites4 = 0;
+meteorite4[numberOfMeteorites4] = ("meteorite4" + numberOfMeteorites4);
+var meteoriteAngle4 = [];
+meteoriteAngle4[numberOfMeteorites4] = 180 * Math.PI / 180;
+var meteoriteCreation4 = [true];
 
 function startGame() {
     myGameArea.start();
-    mySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodHodna.png", 120, 175, "image", spaceShip1);
-    enemySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodZla.png", 580, 175, "image", enemyShip1);
-    levaStena = new component(100, 550, "red",-100, -100, "object");
-    horniStena = new component(900, 100, "red", -100, -100, "object");
-    pravaStena = new component(100, 550, "red", 720, -100, "object");
-    spodniStena = new component(900, 100, "red", -100, 370, "object");
-    strelaPole[n] = new component(5,5,"yellow", -150, -150, "object");
+
+    mySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodHodna.png", 150, 225, "image", spaceShip1);
+    enemySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodZla.png", 600, 225, "image", enemyShip1);
+
+    levaStena = new component(100, 650, "red",-100, -100, "object");
+    horniStena = new component(1000, 100, "red", -100, -100, "object");
+    pravaStena = new component(100, 650, "red", 770, -100, "object");
+    spodniStena = new component(1000, 150, "red", -100, 470, "object");
+
+    strelaPole[n] = new component(5,5,"yellow", -200, -200, "object");
     strelaShipPole[m] = new component(5,5,"red",-200, -200, "object");
+
+    meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+    meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+    meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+    meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 700;
-        this.canvas.height = 350;
+        this.canvas.width = 750;
+        this.canvas.height = 450;
         this.context = this.canvas.getContext("2d");
         document.getElementById("spaceShipCanvas").insertBefore(this.canvas, document.getElementById("spaceShipCanvas").childNodes[0]);
         this.frameNo = 0;
@@ -314,7 +355,7 @@ function checkCollisionWithMySpaceShip(shoot) {
         }
         return false;
     }
-    else {
+    else if (shoot == enemyShip1) {
         for (let i = 0; i <= m; i++) {
             let bullet = strelaShipPole[i];
             if (bullet.x < (enemySpaceShip.x + enemySpaceShip.width - 15) &&
@@ -328,10 +369,158 @@ function checkCollisionWithMySpaceShip(shoot) {
         }
         return false;
     }
+    else if (shoot == meteorite) {
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            for (let j = 0; j <= m; j++) {
+                let bullet = strelaShipPole[j];
+                if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite[i].x - 12) &&
+                bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite[i].y - 10)) {
+                    strelaShipPole.splice(j, 1); // Odstranění střely ze seznamu
+                    m--; // Snížení počtu střel v poli
+                    meteorite.splice(i, 1);
+                    numberOfMeteorites--;
+                    return true;
+                }
+            }
+            for (let j = 0; j <= n; j++) {
+                let bullet = strelaPole[j];
+                if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite[i].x - 12) &&
+                bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite[i].y - 10)) {
+                    strelaPole.splice(j, 1); // Odstranění střely ze seznamu
+                    n--; // Snížení počtu střel v poli
+                    meteorite.splice(i, 1);
+                    numberOfMeteorites--;
+                    return true;
+                }
+            }
+        }
+    }
+    else if (shoot == meteorite2) {
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            for (let j = 0; j <= m; j++) {
+                let bullet = strelaShipPole[j];
+                if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite2[i].x - 12) &&
+                bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite2[i].y - 10)) {
+                    strelaShipPole.splice(j, 1); // Odstranění střely ze seznamu
+                    m--; // Snížení počtu střel v poli
+                    meteorite2.splice(i, 1);
+                    numberOfMeteorites2--;
+                    return true;
+                }
+            }
+            for (let j = 0; j <= n; j++) {
+                let bullet = strelaPole[j];
+                if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite2[i].x - 12) &&
+                bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite2[i].y - 10)) {
+                    strelaPole.splice(j, 1); // Odstranění střely ze seznamu
+                    n--; // Snížení počtu střel v poli
+                    meteorite2.splice(i, 1);
+                    numberOfMeteorites2--;
+                    return true;
+                }
+            }
+        }
+    }
+    else if (shoot == meteorite3) {
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            for (let j = 0; j <= m; j++) {
+                let bullet = strelaShipPole[j];
+                if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite3[i].x - 12) &&
+                bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite3[i].y - 10)) {
+                    strelaShipPole.splice(j, 1); // Odstranění střely ze seznamu
+                    m--; // Snížení počtu střel v poli
+                    meteorite3.splice(i, 1);
+                    numberOfMeteorites3--;
+                    return true;
+                }
+            }
+            for (let j = 0; j <= n; j++) {
+                let bullet = strelaPole[j];
+                if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite3[i].x - 12) &&
+                bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite3[i].y - 10)) {
+                    strelaPole.splice(j, 1); // Odstranění střely ze seznamu
+                    n--; // Snížení počtu střel v poli
+                    meteorite3.splice(i, 1);
+                    numberOfMeteorites3--;
+                    return true;
+                }
+            }
+        }
+    }
+    else if (shoot == meteorite4) {
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            for (let j = 0; j <= m; j++) {
+                let bullet = strelaShipPole[j];
+                if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite4[i].x - 12) &&
+                bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite4[i].y - 10)) {
+                    strelaShipPole.splice(j, 1); // Odstranění střely ze seznamu
+                    m--; // Snížení počtu střel v poli
+                    meteorite4.splice(i, 1);
+                    numberOfMeteorites4--;
+                    return true;
+                }
+            }
+            for (let j = 0; j <= n; j++) {
+                let bullet = strelaPole[j];
+                if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
+                bullet.x + bullet.width > (meteorite4[i].x - 12) &&
+                bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
+                bullet.y + bullet.height > (meteorite4[i].y - 10)) {
+                    strelaPole.splice(j, 1); // Odstranění střely ze seznamu
+                    n--; // Snížení počtu střel v poli
+                    meteorite4.splice(i, 1);
+                    numberOfMeteorites4--;
+                    return true;
+                }
+            }
+        }
+    }
 }
 
 function updateGameArea() {
         if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(horniStena)) {
+            let a = Math.floor(Math.random()*(600)+0);
+            let b = Math.floor(Math.random()*(600)+0);
+            let c = Math.floor(Math.random()*(600)+0);
+            let d = Math.floor(Math.random()*(600)+0);
+            if (meteoriteCreation[a]) {
+                let x = (Math.random()*(101)-50);
+                numberOfMeteorites += 1;
+                meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+                meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation2[b]) {
+                let x = (Math.random()*(61)-120);
+                numberOfMeteorites2 += 1;
+                meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+                meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation3[c]) {
+                let x = (Math.random()*(101)+130);
+                numberOfMeteorites3 += 1;
+                meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+                meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation4[d]) {
+                let x = (Math.random()*(61)+60);
+                numberOfMeteorites4 += 1;
+                meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+                meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+            }
             mySpaceShip.shoot(spaceShip1);
             enemySpaceShip.shoot(enemyShip1);
             enemySpaceShip.y += 3;
@@ -347,12 +536,36 @@ function updateGameArea() {
             enemySpaceShip.speed = 0;
             if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
             if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-            if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-            if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+            if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+            if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
             mySpaceShip.newPos();
             enemySpaceShip.newPos();
             mySpaceShip.update();
             enemySpaceShip.update();
+            for (let i = 0; i <= numberOfMeteorites; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+                meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+                meteorite[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites2; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+                meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+                meteorite2[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites3; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+                meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+                meteorite3[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites4; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+                meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+                meteorite4[i].update();
+            }
             for (let i = 0; i <= m; i++) {
                 strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
                 strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -365,39 +578,119 @@ function updateGameArea() {
             }
         }
         else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(spodniStena)) {
+            let a = Math.floor(Math.random()*(600)+0);
+            let b = Math.floor(Math.random()*(600)+0);
+            let c = Math.floor(Math.random()*(600)+0);
+            let d = Math.floor(Math.random()*(600)+0);
+            if (meteoriteCreation[a]) {
+                let x = (Math.random()*(101)-50);
+                numberOfMeteorites += 1;
+                meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+                meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation2[b]) {
+                let x = (Math.random()*(61)-120);
+                numberOfMeteorites2 += 1;
+                meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+                meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation3[c]) {
+                let x = (Math.random()*(101)+130);
+                numberOfMeteorites3 += 1;
+                meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+                meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation4[d]) {
+                let x = (Math.random()*(61)+60);
+                numberOfMeteorites4 += 1;
+                meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+                meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+            }
             mySpaceShip.shoot(spaceShip1);
             enemySpaceShip.shoot(enemyShip1);
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y -= 3;
-        myGameArea.clear();
-        mySpaceShip.moveAngle = 0;
-        mySpaceShip.speed = 0;
-        if (myGameArea.keys && myGameArea.keys [65]) {mySpaceShip.moveAngle = -2.5; }//a
-        if (myGameArea.keys && myGameArea.keys [68]) {mySpaceShip.moveAngle = 2.5; }//d
-        if (myGameArea.keys && myGameArea.keys [83]) {mySpaceShip.speed = -1.5; }//s
-        if (myGameArea.keys && myGameArea.keys [87]) {mySpaceShip.speed = 2.5; }//w
-        enemySpaceShip.moveAngle = 0;
-        enemySpaceShip.speed = 0;
-        if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
-        if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
-        mySpaceShip.newPos();
-        enemySpaceShip.newPos();
-        mySpaceShip.update();
-        enemySpaceShip.update();
-        for (let i = 0; i <= m; i++) {
-            strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
-            strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
-            strelaShipPole[i].update();
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y -= 3;
+            myGameArea.clear();
+            mySpaceShip.moveAngle = 0;
+            mySpaceShip.speed = 0;
+            if (myGameArea.keys && myGameArea.keys [65]) {mySpaceShip.moveAngle = -2.5; }//a
+            if (myGameArea.keys && myGameArea.keys [68]) {mySpaceShip.moveAngle = 2.5; }//d
+            if (myGameArea.keys && myGameArea.keys [83]) {mySpaceShip.speed = -1.5; }//s
+            if (myGameArea.keys && myGameArea.keys [87]) {mySpaceShip.speed = 2.5; }//w
+            enemySpaceShip.moveAngle = 0;
+            enemySpaceShip.speed = 0;
+            if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
+            if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
+            if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+            if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
+            mySpaceShip.newPos();
+            enemySpaceShip.newPos();
+            mySpaceShip.update();
+            enemySpaceShip.update();
+            for (let i = 0; i <= numberOfMeteorites; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+                meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+                meteorite[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites2; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+                meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+                meteorite2[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites3; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+                meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+                meteorite3[i].update();
+            }
+            for (let i = 0; i <= numberOfMeteorites4; i++) {
+                let rychlost = (Math.random()*(3)+2)
+                meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+                meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+                meteorite4[i].update();
+            }
+            for (let i = 0; i <= m; i++) {
+                strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
+                strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
+                strelaShipPole[i].update();
+            }
+            for (let i = 0; i <= n; i++) {
+                strelaPole[i].x += 5 * Math.sin(strelaAngle[i]);
+                strelaPole[i].y -= 5 * Math.cos(strelaAngle[i]);
+                strelaPole[i].update();
+            }
         }
-        for (let i = 0; i <= n; i++) {
-            strelaPole[i].x += 5 * Math.sin(strelaAngle[i]);
-            strelaPole[i].y -= 5 * Math.cos(strelaAngle[i]);
-            strelaPole[i].update();
-        }
-    }
     else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(spodniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y -= 3;
@@ -413,12 +706,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -432,6 +749,34 @@ function updateGameArea() {
     }
     else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(spodniStena)) {
         mySpaceShip.shoot(spaceShip1);
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y -= 3;
         enemySpaceShip.y += 3;
@@ -446,12 +791,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -464,6 +833,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -479,12 +876,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -497,6 +918,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -512,12 +961,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -530,6 +1003,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -545,12 +1046,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -563,6 +1088,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -578,12 +1131,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -596,6 +1173,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -611,12 +1216,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -629,6 +1258,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -644,12 +1301,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -662,6 +1343,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -677,12 +1386,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -695,6 +1428,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -710,12 +1471,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -728,6 +1513,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -743,12 +1556,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -761,6 +1598,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -776,12 +1641,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -794,6 +1683,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -809,12 +1726,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -827,6 +1768,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -842,12 +1811,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -860,6 +1853,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -875,12 +1896,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -893,6 +1938,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -908,12 +1981,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -926,6 +2023,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -941,12 +2066,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -959,6 +2108,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y += 3;
@@ -973,12 +2150,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -991,6 +2192,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1005,12 +2234,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1023,6 +2276,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1038,12 +2319,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1056,6 +2361,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(horniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y += 3;
@@ -1070,12 +2403,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1088,6 +2445,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(horniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y += 3;
@@ -1102,12 +2487,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1120,6 +2529,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(spodniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y -= 3;
@@ -1134,12 +2571,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1152,6 +2613,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(spodniStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y -= 3;
@@ -1166,12 +2655,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1184,6 +2697,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -1198,12 +2739,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1216,6 +2781,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(pravaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -1230,12 +2823,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1248,6 +2865,34 @@ function updateGameArea() {
         }
     }
     else if (enemySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -1262,12 +2907,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1280,6 +2949,34 @@ function updateGameArea() {
         }
     }
     else if (mySpaceShip.crashWith(levaStena)) {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1294,12 +2991,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1312,6 +3033,72 @@ function updateGameArea() {
         }
     }
     else {
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
+        /*
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite[i]) == 0) {
+                meteoriteCrashing(meteorite[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite[i]) == 0) {
+                meteoriteCrashing(meteorite[i], enemyShip1, i);
+            }
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite2[i]) == ) {
+                meteoriteCrashing(meteorite2[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite2[i]) == 0) {
+                meteoriteCrashing(meteorite2[i], enemyShip1, i);
+            }
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite3[i]) == 0) {
+                meteoriteCrashing(meteorite3[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite3[i]) == 0) {
+                meteoriteCrashing(meteorite3[i], enemyShip1, i);
+            }
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite4[i]) == 0) {
+                meteoriteCrashing(meteorite4[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite4[i]) == 0) {
+                meteoriteCrashing(meteorite4[i], enemyShip1, i);
+            }
+        }
+        */
+       checkCollisionWithMySpaceShip(meteorite);
+       checkCollisionWithMySpaceShip(meteorite2);
+       checkCollisionWithMySpaceShip(meteorite3);
+       checkCollisionWithMySpaceShip(meteorite4);
         enemySpaceShip.shoot(enemyShip1);    
         mySpaceShip.shoot(spaceShip1);
         myGameArea.clear();
@@ -1326,12 +3113,36 @@ function updateGameArea() {
         enemySpaceShip.speed = 0;
         if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
         if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1; }
-        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2; }
+        if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
+        if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
         mySpaceShip.newPos();
         enemySpaceShip.newPos();
         mySpaceShip.update();
         enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
         for (let i = 0; i <= m; i++) {
             strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
             strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
@@ -1344,7 +3155,52 @@ function updateGameArea() {
         }
     }
 }
+/*
+function meteoriteCrashing(meteoriteType, target, k) {
+    meteoriteType.spilce(k,1);
+    if (meteoriteType == meteorite[i]) {
+        numberOfMeteorites--;
+    }
+    else if (meteoriteType == meteorite2[i]) {
+        numberOfMeteorites2--;
+    }
+    else if (meteoriteType == meteorite3[i]) {
+        numberOfMeteorites3--;
+    }
+    else if (meteoriteType == meteorite4[i]) {
+        numberOfMeteorites4--;
+    }
+    target.silaStitu -= 2;
+    target.getshieldStrength();
+    refuelInterval = setInterval(() => {
+        document.getElementById("messageBox").style.display = "block";
+        document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
+    },300);
+    setTimeout(() => {
+        clearInterval(refuelInterval);
+        document.getElementById("messageBox").style.display = "none";
+    },4000);
+}
 
+function meteoriteCrashWith(ship, meteorite) {
+    let shipleft = ship.x;
+    let shipright = ship.x + (ship.width);
+    let shiptop = ship.y;
+    let shipbottom = ship.y + (ship.height);
+    let meteoriteleft = meteorite.x;
+    let meteoriteright = meteorite.x + (meteorite.width);
+    let meteoritetop = meteorite.y;
+    let meteoritebottom = meteorite.y + (meteorite.height);
+    var crashed;
+    if ((shipbottom < meteoritetop) || (shiptop > meteoritebottom) || (shipright < meteoriteleft) || (shipleft > meteoriteright)) {
+        crashed = false;
+    }
+    else {
+        crashed = true;
+    }
+    return
+}
+*/
 function wasdMoveUp() {
     mySpaceShip.speed = 2.5;
 }
