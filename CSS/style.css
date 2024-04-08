@@ -1,0 +1,108 @@
+@font-face {
+    font-family: Pixelify Sans;
+    src: url(../FONTS/PixelifySans-VariableFont_wght.ttf);
+    font-weight: normal;
+}
+
+body {
+    text-align: center;
+    font-family: "Pixelify Sans";
+    background-image: url('../IMAGES/pozadiVesmir.webp');
+}
+
+header {
+    color:blue;
+}
+
+section {
+    color:yellow;
+}
+
+footer {
+    color:yellow;
+    bottom: 0;
+    position:fixed;
+    padding-left: 39em;
+}
+
+ul {
+    list-style-type: none;
+}
+
+footer a {
+    color:yellow;
+    text-decoration:none;
+}
+
+#enemyShipButton button, #enemyShipButtonUp button, #spaceShipButton button, #spaceShipButtonW button {
+    height:50px;
+    width:50px;
+    font-size: larger;
+}
+
+#spaceShipButtonW, #spaceShipButton {
+    margin-right: 10px;
+}
+
+#spaceShipButtonW, #enemyShipButtonUp {
+    margin-bottom: 4px;
+}
+
+#spaceShipControlers {
+    display:flex;
+}
+
+#sipkaDolu {
+    margin:10px;
+    font-weight: bold;
+}
+
+#hlavniPlocha {
+    display:flex;
+    margin-bottom: 10px;
+}
+
+#vesmirnaLod {
+    order:1;
+    flex:1;
+}
+
+#hraciPole {
+    order:2;
+    flex:2;
+}
+
+#nepratelskaLod {
+    order:3;
+    flex:1;
+}
+
+canvas {
+    border: 2px solid #d3d3d3;
+    background-color: black;
+}
+
+#wasd {
+    margin-left: 100px;
+    margin-right:235px;
+}
+
+#messageBox, #inputBox {
+    background-color: black;
+    margin-left: 500px;
+    font-size: larger;
+    color: yellow;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    position: fixed;
+    display: none;
+}
+
+#reloadButton button {
+    height: 50px;
+    width:180px;
+    font-size: large;
+}
+

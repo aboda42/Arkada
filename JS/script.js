@@ -64,6 +64,7 @@ class SpaceShip {
         }
     }
     refuel(amount) {
+        //refuelInput();
         var amount = Math.floor(prompt('Enter the amount of fuel to be added: '));
         if (this.nazev == spaceShip1.nazev && amount == 42 && this.nazev != "Milleium Falcon") {
             enemyShip1.nazev = "The bowl of petunias"
@@ -171,6 +172,10 @@ class EnemySpaceShip extends SpaceShip {
     }
 }
 
+function refuelInput() {
+    document.getElementById("inputBox").style.display = "block"
+}
+
 //<------------------------------Konec funkcí a tříd-------------------------------->
 //<------------------------------Vyvolávání----------------------------------------->
 
@@ -250,7 +255,7 @@ function jaJaAJenomJa() {
 
 
 
-//Přidej možnost, že když se to pokusíš reloadnout, tak ti to nespadne (key codes (https://www.toptal.com/developers/keycode/table) & if...) + zjisti, jestli jde zakomponovat i reload pomocí tlačítka, co je na webu (ať je blokneš úplně :))
+//Přidej možnost, že když se to pokusíš reloadnout, tak se ti to nenačte (key codes (https://www.toptal.com/developers/keycode/table) & if...) + zjisti, jestli jde zakomponovat i reload pomocí tlačítka, co je na webu (ať to blokneš úplně :))
 
 //<-------------------------Konec eastereggu se jménem------------------------------>
 
@@ -1288,4 +1293,4 @@ document.addEventListener("keyup", function(event) {
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
-//Co se ještě musí udělat:(palivo zobrazit: healthbar + funkčnost), (input boxy?)
+//Co se ještě musí udělat:(palivo zobrazit: healthbar + funkčnost), (input boxy? => ty fachají, ale nejde do nich psát (nejspíše, bo je funkční kanvas, a zjišťuje zmáčklé klávesy?))

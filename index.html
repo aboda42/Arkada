@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Adam Boďa">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/style.css" type="text/css">
+        <link rel="shortcut icon" href="IMAGES/ikona.ico">
+        <title>
+            SpaceShip Destroyer – v3.42.66
+        </title>
+    </head>
+    <body onload="startGame()">
+<!--
+        <div id="inputBox">
+            <p>
+                Enter the amount of fuel to be added:<br>
+                <form>
+                    <input type="text" id="input">
+                </form>
+                <button>Submit</button>
+            </p>
+        </div>
+-->        
+        <div id="messageBox"></div>
+        <header>
+            <h1 id="h1">
+                SpaceShip Destroyer – v3.42.66
+            </h1>
+        </header>
+        </section>
+        <div id="aggro">
+            <section id="hlavniPlocha">
+                <div id="vesmirnaLod">
+                    <h2 id="name"></h2>
+                    <ul>
+                        <li id="position"></li>
+                        <li id="fuel"></li>
+                        <li id="shield"></li>
+                        <li id="consumption"></li>
+                    </ul>
+                    <div id="shipButtons">
+                        <button onclick="spaceShip1.refuel()">Refill fuel</button>
+                    </div>
+                </div>
+                <div id="hraciPole">
+                    <div id="tabulka">
+                        <div id="spaceShipCanvas"></div>
+                        <div id="spaceShipControlers">
+                            <div id="wasd">
+                                <div id="spaceShipButtonW">
+                                    <button onkeydown="wasdMoveUp()" onkeyup="myStopMove()">W</button>
+                                </div>
+                                <div id="spaceShipButton">
+                                    <button onkeydown="wasdMoveLeft()" onkeyup="myStopMove()">A</button>
+                                    <button onkeydown="wasdMoveDown()" onkeyup="myStopMove()">S</button>
+                                    <button onkeydown="wasdMoveRight()" onkeyup="myStopMove()">D</button>
+                                </div>
+                            </div>
+                            <div id="arrows">
+                                <div id="enemyShipButtonUp">
+                                    <button onmousedown="arrowMoveUp()" onmouseup="enemyStopMove()">↑</button>
+                                </div>
+                                <div id="enemyShipButton">
+                                    <button onmousedown="arrowMoveLeft()" onmouseup="enemyStopMove()">←</button>
+                                    <button onmousedown="arrowMoveDown()" onmouseup="enemyStopMove()">↓</button>
+                                    <button onmousedown="arrowMoveRight()" onmouseup="enemyStopMove()">→</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reloadButton">
+                        <button onclick="reload()">New game</button>
+                    </div>
+                </div>
+                <div id="nepratelskaLod">
+                    <h2 id="enemyName"></h2>
+                    <ul>
+                        <li id="enemyPosition"></li>
+                        <li id="enemyFuel"></li>
+                        <li id="enemyShield"></li>
+                        <li id="enemyConsumption"></li>
+                        <li id="enemyWeaponPower"></li>
+                    </ul>
+                    <div id="enemyButtons">
+                        <button onclick="enemyShip1.refuel()">Refill fuel</button>
+                        <button onclick="attack(enemySpaceShip)">Attack (Space)</button>
+                    </div>
+                </div>
+            </section>
+            <section id="sipkaDolu"></section>
+        </div>
+        <script src="JS/script.js"></script>
+        <footer>
+            <p>
+                &copy;2024. <a href="#" role="button" onclick="jaJaAJenomJa()">BOĎA Adam</a>. Vytvořeno pro zábavu.
+            </p>
+        </footer>
+    </body>
+</html>
