@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Adam Boďa">
+        <link rel="stylesheet" href="CSS/style.css" type="text/css">
+        <title>
+            SpaceShip Destroyer – v2.0
+        </title>
+    </head>
+    <body id="body">
+        <header>
+            <h1>
+                SpaceShip Destroyer – v2.0
+            </h1>
+        </header>
+        <section>
+            <p>
+                "Star Destroyer", 800, 500, 8, 8, 4 <br>
+            </p>
+        </section>
+        <div id="aggro">
+            <section id="hlavniPlocha">
+                <div id="vesmirnaLod">
+                    <h2 id="name"></h2>
+                    <ul>
+                        <li id="position"></li>
+                        <li id="fuel"></li>
+                        <li id="shield"></li>
+                        <li id="consumption"></li>
+                    </ul>
+                    <div id="shipButtons">
+                        <button onclick="spaceShip1.refuel()">Doplnit palivo</button>
+                        <button onclick="spaceShip1.move()">Posunout se</button>
+                    </div>
+                </div>
+                <div id="hraciPole">
+                    <p id="hraciPole2">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dictum tincidunt diam. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus luctus egestas leo. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas libero. Donec iaculis gravida nulla. Fusce tellus odio, dapibus id fermentum quis, suscipit id erat. Integer malesuada. Aliquam ante. Pellentesque ipsum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sagittis hendrerit ante. Curabitur vitae diam non enim vestibulum interdum.Donec vitae arcu. Mauris dictum facilisis augue. Mauris elementum mauris vitae tortor. Integer imperdiet lectus quis justo. Aliquam in lorem sit amet leo accumsan lacinia. Praesent in mauris eu tortor porttitor accumsan. Aliquam erat volutpat. Curabitur sagittis hendrerit ante. Aenean placerat. Pellentesque ipsum. Curabitur bibendum justo non orci.Cras elementum. Mauris elementum mauris vitae tortor. Nullam sit amet magna in magna gravida vehicula. Etiam egestas wisi a erat. Aenean id metus id velit ullamcorper pulvinar. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Curabitur sagittis hendrerit ante. Nunc auctor. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Quisque porta. Curabitur sagittis hendrerit ante. Proin in tellus sit amet nibh dignissim sagittis.
+                    </p>
+                    <div id="reloadButton">
+                        <button onclick="reload()">Nová hra</button>
+                    </div>
+                </div>
+                <div id="nepratelskaLod">
+                    <h2 id="enemyName"></h2>
+                    <ul>
+                        <li id="enemyPosition"></li>
+                        <li id="enemyFuel"></li>
+                        <li id="enemyShield"></li>
+                        <li id="enemyConsumption"></li>
+                        <li id="enemyWeaponPower"></li>
+                    </ul>
+                    <div id="enemyButtons">
+                        <button onclick="enemyShip1.refuel()">Doplnit palivo</button>
+                        <button onclick="enemyShip1.move()">Posunout se</button>
+                        <button onclick="enemyShip1.attack(spaceShip1)">Střílet</button>
+                    </div>
+                </div>
+            </section>
+            <section id="ovladaciPrvky">
+            
+            </section>
+            <section id="sipkaDolu">
+            
+            </section>
+        </div>
+        <script src="JS/script.js"></script>
+        <footer>
+            <p>&copy;2024. <a href="#" role="button" onclick="jaJaAJenomJa()">BOĎA Adam</a>. Vytvořeno pro zábavu.</p>
+        </footer>
+    </body>
+</html>

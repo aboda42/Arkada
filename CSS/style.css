@@ -1,0 +1,50 @@
+@font-face {
+    font-family: Pixelify Sans;
+    src: url(../FONTS/PixelifySans-VariableFont_wght.ttf);
+    font-weight: normal;
+}
+
+body {
+    color:chartreuse;
+    background-color: black;
+    text-align: center;
+    font-family: "Pixelify Sans";
+}
+
+footer {
+    bottom: 0;
+    position:fixed;
+    padding-left: 39em;
+}
+
+ul {
+    list-style-type: none;
+}
+
+footer a {
+    color:chartreuse;
+    text-decoration:none;
+}
+
+#hlavniPlocha {
+    display:flex;
+}
+
+#vesmirnaLod {
+    order:1;
+    flex:1;
+}
+
+#hraciPole {
+    order:2;
+    flex:2;
+}
+
+#nepratelskaLod {
+    order:3;
+    flex:1;
+}
+
+#ovladaciPrvky {
+    display:flex;
+}
