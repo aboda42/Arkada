@@ -12,10 +12,10 @@ class SpaceShip {
     }
     getManaAmount() {
         if (this.nazev == spaceShip1.nazev) {
-            document.getElementById("mana").innerHTML = "Amount of energy: <br> <div id='manabar'> <img src='IMAGES/manabar.png' style='width: " + (100 * this.mana) + "px'> </div>"
+            document.getElementById("mana").innerHTML = "Amount of energy: <br> <svg id='manabar' width='120px' height='15px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='5px' y='2px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>"
         }
         else {
-            document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <div id='enemyManabar'> <img src='IMAGES/manabar.png' style='width: " + (100 * this.mana) + "px'> </div>"
+            document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <svg id='enemyManabar' width='120px' height='15px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='5px' y='2px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>"
         }
     }
     reloadMana() {
@@ -561,6 +561,12 @@ function updateGameArea() {
                 meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
                 meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
             }
+            checkCollisionWithMySpaceShip(meteorite);
+            checkCollisionWithMySpaceShip(meteorite2);
+            checkCollisionWithMySpaceShip(meteorite3);
+            checkCollisionWithMySpaceShip(meteorite4);
+            enemyShip1.reloadMana();
+            spaceShip1.reloadMana();
             mySpaceShip.shoot(spaceShip1);
             enemySpaceShip.shoot(enemyShip1);
             enemySpaceShip.y += 3;
@@ -646,6 +652,12 @@ function updateGameArea() {
                 meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
                 meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
             }
+            checkCollisionWithMySpaceShip(meteorite);
+            checkCollisionWithMySpaceShip(meteorite2);
+            checkCollisionWithMySpaceShip(meteorite3);
+            checkCollisionWithMySpaceShip(meteorite4);
+            enemyShip1.reloadMana();
+            spaceShip1.reloadMana();
             mySpaceShip.shoot(spaceShip1);
             enemySpaceShip.shoot(enemyShip1);
             enemySpaceShip.y -= 3;
@@ -731,6 +743,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y -= 3;
@@ -817,6 +835,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y -= 3;
         enemySpaceShip.y += 3;
@@ -901,6 +925,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -986,6 +1016,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1071,6 +1107,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -1156,6 +1198,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -1241,6 +1289,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -1326,6 +1380,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1411,6 +1471,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -1496,6 +1562,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -1581,6 +1653,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -1666,6 +1744,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -1751,6 +1835,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -1836,6 +1926,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -1921,6 +2017,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -2008,6 +2110,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -2094,6 +2202,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -2180,6 +2294,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y += 3;
@@ -2265,6 +2385,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -2350,6 +2476,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -2435,6 +2567,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y += 3;
@@ -2519,6 +2657,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y += 3;
@@ -2603,6 +2747,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y -= 3;
@@ -2687,6 +2837,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.y -= 3;
@@ -2771,6 +2927,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x -= 3;
@@ -2855,6 +3017,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x -= 3;
@@ -2939,6 +3107,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         enemySpaceShip.x += 3;
@@ -3023,6 +3197,12 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
@@ -3326,4 +3506,4 @@ document.addEventListener("keyup", function(event) {
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
-//Přidej: pausnutí hry; střet dvou střel; "healthbar" na střely;
+//Přidej: pausnutí hry; střet dvou střel; "healthbar" na střely => ŠUPNI TO VŠUDE!!! (do UpdateGameArea(););
