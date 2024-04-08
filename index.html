@@ -5,19 +5,15 @@
         <meta name="author" content="Adam Boďa">
         <link rel="stylesheet" href="CSS/style.css" type="text/css">
         <title>
-            SpaceShip Destroyer – v2.0
+            SpaceShip Destroyer – v3.0
         </title>
     </head>
     <body id="body">
         <header>
             <h1>
-                SpaceShip Destroyer – v2.0
+                SpaceShip Destroyer – v3.0
             </h1>
         </header>
-        <section>
-            <p>
-                "Star Destroyer", 800, 500, 8, 8, 4 <br>
-            </p>
         </section>
         <div id="aggro">
             <section id="hlavniPlocha">
@@ -30,16 +26,108 @@
                         <li id="consumption"></li>
                     </ul>
                     <div id="shipButtons">
-                        <button onclick="spaceShip1.refuel()">Doplnit palivo</button>
-                        <button onclick="spaceShip1.move()">Posunout se</button>
+                        <button onclick="spaceShip1.refuel()">Refill fuel</button>
                     </div>
                 </div>
                 <div id="hraciPole">
-                    <p id="hraciPole2">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam dictum tincidunt diam. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus luctus egestas leo. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Maecenas libero. Donec iaculis gravida nulla. Fusce tellus odio, dapibus id fermentum quis, suscipit id erat. Integer malesuada. Aliquam ante. Pellentesque ipsum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sagittis hendrerit ante. Curabitur vitae diam non enim vestibulum interdum.Donec vitae arcu. Mauris dictum facilisis augue. Mauris elementum mauris vitae tortor. Integer imperdiet lectus quis justo. Aliquam in lorem sit amet leo accumsan lacinia. Praesent in mauris eu tortor porttitor accumsan. Aliquam erat volutpat. Curabitur sagittis hendrerit ante. Aenean placerat. Pellentesque ipsum. Curabitur bibendum justo non orci.Cras elementum. Mauris elementum mauris vitae tortor. Nullam sit amet magna in magna gravida vehicula. Etiam egestas wisi a erat. Aenean id metus id velit ullamcorper pulvinar. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu. Curabitur sagittis hendrerit ante. Nunc auctor. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Quisque porta. Curabitur sagittis hendrerit ante. Proin in tellus sit amet nibh dignissim sagittis.
-                    </p>
+                    <div id="tabulka">
+                        <div id="spaceShipTable">
+                            <table id="spaceShip">
+                                <tr>
+                                    <td id="td1x1"></td>
+                                    <td id="td2x1"></td>
+                                    <td id="td3x1"></td>
+                                    <td id="td4x1"></td>
+                                    <td id="td5x1"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x2"></td>
+                                    <td id="td2x2"></td>
+                                    <td id="td3x2"></td>
+                                    <td id="td4x2"></td>
+                                    <td id="td5x2"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x3"></td>
+                                    <td id="td2x3"></td>
+                                    <td id="td3x3"></td>
+                                    <td id="td4x3"></td>
+                                    <td id="td5x3"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x4"></td>
+                                    <td id="td2x4"></td>
+                                    <td id="td3x4"></td>
+                                    <td id="td4x4"></td>
+                                    <td id="td5x4"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x5"></td>
+                                    <td id="td2x5"></td>
+                                    <td id="td3x5"></td>
+                                    <td id="td4x5"></td>
+                                    <td id="td5x5"></td>
+                                </tr>
+                            </table>
+                            <div id="spaceShipButtonW">
+                                <button id="wKey" onclick="wKeyFce">W</button>
+                            </div>
+                            <div id="spaceShipButton">
+                                <button>A</button>
+                                <button>S</button>
+                                <button>D</button>
+                            </div>
+                        </div>
+                        <div id="enemyShipTable">
+                            <table id="enemyShip">
+                                <tr>
+                                    <td id="tde1x1"></td>
+                                    <td id="tde2x1"></td>
+                                    <td id="tde3x1"></td>
+                                    <td id="tde4x1"></td>
+                                    <td id="tde5x1"></td>
+                                </tr>
+                                <tr>
+                                    <td id="tde1x2"></td>
+                                    <td id="tde2x2"></td>
+                                    <td id="tde3x2"></td>
+                                    <td id="tde4x2"></td>
+                                    <td id="tde5x2"></td>
+                                </tr>
+                                <tr>
+                                    <td id="tde1x3"></td>
+                                    <td id="tde2x3"></td>
+                                    <td id="tde3x3"></td>
+                                    <td id="tde4x3"></td>
+                                    <td id="tde5x3"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x4"></td>
+                                    <td id="td2x4"></td>
+                                    <td id="td3x4"></td>
+                                    <td id="td4x4"></td>
+                                    <td id="td5x4"></td>
+                                </tr>
+                                <tr>
+                                    <td id="td1x5"></td>
+                                    <td id="td2x5"></td>
+                                    <td id="td3x5"></td>
+                                    <td id="td4x5"></td>
+                                    <td id="td5x5"></td>
+                                </tr>
+                            </table>
+                            <div id="enemyShipButtonUp">
+                                <button>↑</button>
+                            </div>
+                            <div id="enemyShipButton">
+                                <button>←</button>
+                                <button>↓</button>
+                                <button>→</button>
+                            </div>
+                        </div>
+                    </div>
                     <div id="reloadButton">
-                        <button onclick="reload()">Nová hra</button>
+                        <button onclick="reload()">New game</button>
                     </div>
                 </div>
                 <div id="nepratelskaLod">
@@ -52,22 +140,18 @@
                         <li id="enemyWeaponPower"></li>
                     </ul>
                     <div id="enemyButtons">
-                        <button onclick="enemyShip1.refuel()">Doplnit palivo</button>
-                        <button onclick="enemyShip1.move()">Posunout se</button>
-                        <button onclick="enemyShip1.attack(spaceShip1)">Střílet</button>
+                        <button onclick="enemyShip1.refuel()">Refill fuel</button>
+                        <button onclick="enemyShip1.attack(spaceShip1)">Attack</button>
                     </div>
                 </div>
             </section>
-            <section id="ovladaciPrvky">
-            
-            </section>
-            <section id="sipkaDolu">
-            
-            </section>
+            <section id="sipkaDolu"></section>
         </div>
         <script src="JS/script.js"></script>
         <footer>
-            <p>&copy;2024. <a href="#" role="button" onclick="jaJaAJenomJa()">BOĎA Adam</a>. Vytvořeno pro zábavu.</p>
+            <p>
+                &copy;2024. <a href="#" role="button" onclick="jaJaAJenomJa()">BOĎA Adam</a>. Vytvořeno pro zábavu.
+            </p>
         </footer>
     </body>
 </html>

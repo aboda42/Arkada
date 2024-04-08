@@ -26,8 +26,49 @@ footer a {
     text-decoration:none;
 }
 
+#enemyShipButton button, #enemyShipButtonUp button, #spaceShipButton button, #spaceShipButtonW button {
+    height:50px;
+    width:50px;
+    font-size: larger;
+}
+
+#spaceShipButtonW, #enemyShipButtonUp {
+    margin-bottom: 4px;
+}
+
+
+#sipkaDolu {
+    margin:10px;
+}
+
+#tabulka table {
+    border: 3px solid #ffffff;
+    margin-bottom: 10px;
+}
+
+#tabulka td {
+    border: 2px solid #ffffff;
+    width:76px;
+    height:69px;
+}
+
+#tabulka {
+    display:flex;
+}
+
+#spaceShipTable {
+    order:1;
+    flex:1;
+}
+
+#enemyShipTable {
+    order:2;
+    flex:1;
+}
+
 #hlavniPlocha {
     display:flex;
+    margin-bottom: 10px;
 }
 
 #vesmirnaLod {
@@ -45,6 +86,7 @@ footer a {
     flex:1;
 }
 
-#ovladaciPrvky {
-    display:flex;
+#tabulka img {
+    width:20px;
+    height:20px;
 }

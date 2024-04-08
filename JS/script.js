@@ -13,10 +13,10 @@ class SpaceShip {
     }
     getFuelConsumption() {
         if (this.nazev == spaceShip1.nazev) {
-            document.getElementById("consumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " l/AU");
+            document.getElementById("consumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " units/AU");
         }
         else {
-            document.getElementById("enemyConsumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " l/AU");
+            document.getElementById("enemyConsumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " units/AU");
         }
     }
     getPosition() {
@@ -29,10 +29,10 @@ class SpaceShip {
     }
     getFuel() {
         if (this.nazev == spaceShip1.nazev) {
-            document.getElementById("fuel").innerHTML = ("Fuel: " + this.palivo + " l");
+            document.getElementById("fuel").innerHTML = ("Fuel: " + this.palivo + " units");
         }
         else {
-            document.getElementById("enemyFuel").innerHTML = ("Fuel: " + this.palivo + " l");
+            document.getElementById("enemyFuel").innerHTML = ("Fuel: " + this.palivo + " units");
         }
     }
     getshieldStrength() {
@@ -42,7 +42,7 @@ class SpaceShip {
                 document.getElementById("shipButtons").innerHTML = "<button>Refill fuel</button> <button>Move</button>";
                 let element = document.getElementById("vesmirnaLod");
                 element.style.color = "#DC143C";
-                document.getElementById("hraciPole2").innerHTML = ("<h1>Spaceship <em>" + this.nazev + "</em> was destroyed. <em>" + enemyShip1.nazev + "</em> vyhrál!</h1>");
+                document.getElementById("tabulka").innerHTML = ("<h1>Spaceship <em>" + this.nazev + "</em> was destroyed. <em>" + enemyShip1.nazev + "</em> won!</h1>");
                 alert("Spaceship was destroyed! Game over.");
                 document.getElementById("shield").innerHTML = ("Shield strength: " + this.silaStitu);
                 reloadButton();
@@ -57,10 +57,10 @@ class SpaceShip {
                 document.getElementById("shipButtons").innerHTML = "<button>Refill fuel</button> <button>Move</button>";
                 let element = document.getElementById("nepratelskaLod");
                 element.style.color = "#DC143C";
-                document.getElementById("hraciPole2").innerHTML = ("<h1>Spaceship <em>" + spaceShip1.nazev + "</em> won!</h1>");
+                document.getElementById("tabulka").innerHTML = ("<h1>Spaceship <em>Star Destroyer</em> has turned into the bowl of petunias. Spaceship <em>" + spaceShip1.nazev + "</em> won!</h1>");
                 document.getElementById("enemyShield").innerHTML = ("Shield strength: " + this.silaStitu);
-                document.getElementById("enemyConsumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " l/AU");
-                document.getElementById("enemyFuel").innerHTML = ("Fuel: " + this.palivo + " l");
+                document.getElementById("enemyConsumption").innerHTML = ("Consumption: " + this.spotrebaPaliva + " units/AU");
+                document.getElementById("enemyFuel").innerHTML = ("Fuel: " + this.palivo + " units");
                 document.getElementById("enemyWeaponPower").innerHTML = ("Weapon power: " + this.weaponPower);
                 reloadButton();
             }
@@ -70,10 +70,10 @@ class SpaceShip {
         }
     }
     refuel(amount) {
-        var amount = Math.floor(prompt('Zadej množství doplňovaného paliva: '));
+        var amount = Math.floor(prompt('Enter the amount of fuel to be added: '));
         if (this.nazev == spaceShip1.nazev && amount == 42 && this.nazev != "Milleium Falcon") {
-            enemyShip1.nazev = "Květináč petúnií"
-            alert("Zapnul jsi nepravděpodobnostní motor a tvůj soupeř se proměnil v květináč petúnií. Vyhrál jsi!");
+            enemyShip1.nazev = "The bowl of petunias"
+            alert("You turned on the Infinite Improbability Engine and your opponent turned into a bowl of petunias. You won!");
             document.getElementById("enemyName").innerHTML = ("<em>" + enemyShip1.nazev + "</em>");
             enemyShip1.silaStitu = 0;
             enemyShip1.palivo = 0;
@@ -91,22 +91,9 @@ class SpaceShip {
             document.getElementById("enemyWeaponPower").innerHTML = ("Weapon power: Instant kill");
         }
         else {
-            alert("Loď " + this.nazev + " byla doplněna palivem o " + amount + " jednotek.");
+            alert("Spaceship " + this.nazev + " was refilled with " + amount + " units of fuel.");
             this.palivo = this.palivo + amount;
             this.getFuel();
-        }
-    }
-    move(distance) {
-        var distance = Math.floor(prompt("Zadej vzdálenost o kterou se chceš posunout:"));
-        if ((distance*this.spotrebaPaliva) <= this.palivo) {
-            alert("Loď " + this.nazev + " se posunula o " + distance + " světelných let.");
-            this.pozice = this.pozice + distance;
-            this.palivo = this.palivo - (distance*this.spotrebaPaliva);
-            this.getFuel();
-            this.getPosition();
-        }
-        else {
-            alert("Loď " + this.nazev + " nemá dostatek paliva na to, aby podnikla tento posun!");
         }
     }
 }
@@ -127,11 +114,11 @@ class EnemySpaceShip extends SpaceShip {
         this.weaponPower = weaponPower;
     }
     getWeaponPower() {
-        document.getElementById("enemyWeaponPower").innerHTML = ("Síla útoku: " + this.weaponPower);
+        document.getElementById("enemyWeaponPower").innerHTML = ("Weapon power: " + this.weaponPower);
     }
     attack(target) {
         target.silaStitu = target.silaStitu - this.weaponPower;
-        alert("Zásah! Loď " + this.nazev + " vystřelila na " + target.nazev + ".");
+        alert("Strike! Spaceship " + this.nazev + " shot " + target.nazev + ".");
         target.getshieldStrength();
     }
 }
@@ -191,3 +178,19 @@ function jaJaAJenomJa() {
         },3000);
     }
 }
+
+var spaceShipX = 3;
+var spaceShipY = 3;
+var enemyShipX = 3;
+var enemyShipY = 3;
+
+function spaceShipImage() {
+    document.getElementById("td" + spaceShipX.toString() + "x" + spaceShipY.toString()).innerHTML = ('<img src="IMAGES/VesmirnaLodHodna.png">');
+}
+
+function enemyShipImage() {
+    document.getElementById("tde" + spaceShipX.toString() + "x" + spaceShipY.toString()).innerHTML = ('<img src="IMAGES/VesmirnaLodZla.png">');
+}
+
+spaceShipImage();
+enemyShipImage();
