@@ -22,7 +22,7 @@ footer {
     color:#ff00ff;
     bottom: 0;
     position:fixed;
-    padding-left: 39em;
+    padding-left: 40vw;
 }
 
 ul {
@@ -35,17 +35,17 @@ footer a {
 }
 
 #enemyName, #name {
-    margin-left:30px;
+    margin-left:2.5vw;
 }
 
 #hlavniPlocha h3 {
-    margin-left:35px;
+    margin-left:3vw;
 }
 
 #shipButtons, #enemyButtons {
     margin-top: 20px;
     font-weight: bold;
-    margin-left:130px;
+    margin-left:8.5vw;
     padding-top: 15px;
     background-color: black;
     text-align: center;
@@ -97,7 +97,7 @@ footer a {
 }
 
 #hraciPole {
-    margin-top: 50px;
+    margin-top: 8vh;
     order:2;
     flex:2;
 }
@@ -114,7 +114,7 @@ canvas {
 
 #messageBox {
     background-color: black;
-    margin-left: 500px;
+    margin-left: 32vw;
     font-size: larger;
     color: yellow;
     border: 2px solid #ffffff;
@@ -133,6 +133,10 @@ canvas {
 
 #mana, #enemyMana {
     margin-top: 15px;
+}
+
+#mana svg, #enemyMana svg {
+    background-image: url('../IMAGES/manaBackground.png');
 }
 
 #manabar img, #enemyMana img {
