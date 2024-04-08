@@ -11,6 +11,8 @@ class SpaceShip {
     getshieldStrength() {
         if (this.nazev == spaceShip1.nazev) {
             if (this.silaStitu <= 0) {
+                enemyShip1.weaponPower = 0;
+                spaceShip1.weaponPower = 0;
                 document.getElementById("enemyButtons").innerHTML = "Attack (Space)";
                 document.getElementById("shipButtons").innerHTML = "Attack (G)";
                 document.getElementById("vesmirnaLod").style.color = "#DC143C";
@@ -25,6 +27,8 @@ class SpaceShip {
         }
         else {
             if (this.silaStitu <= 0) {
+                enemyShip1.weaponPower = 0;
+                spaceShip1.weaponPower = 0;
                 document.getElementById("enemyButtons").innerHTML = "Attack (Space)";
                 document.getElementById("shipButtons").innerHTML = "Attack (G)";
                 document.getElementById("nepratelskaLod").style.color = "#DC143C";
@@ -40,15 +44,33 @@ class SpaceShip {
     }
 }
 
-function alertStrike(utocnik, obet) {
-    refuelInterval = setInterval(() => {
-        document.getElementById("messageBox").style.display = "block";
-        document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
-    },300);
-    setTimeout(() => {
-        clearInterval(refuelInterval);
-        document.getElementById("messageBox").style.display = "none";
-    },4000);
+function alertStrike(utocnik, obet, target) {
+    if (enemyShip1.silaStitu > 0 && spaceShip1.silaStitu > 0) {
+        if (document.getElementById("messageBox").style.display != "block") {
+            strike(target);
+            refuelInterval = setInterval(() => {
+                document.getElementById("messageBox").style.display = "block";
+                document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
+            },300);
+            setTimeout(() => {
+                clearInterval(refuelInterval);
+                document.getElementById("messageBox").style.display = "none";
+            },4000);
+        }
+        else {
+            setTimeout(() => {
+                strike(target);
+                refuelInterval = setInterval(() => {
+                    document.getElementById("messageBox").style.display = "block";
+                    document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
+                },300);
+                setTimeout(() => {
+                    clearInterval(refuelInterval);
+                    document.getElementById("messageBox").style.display = "none";
+                },4000);
+            },4000);
+        }
+    }
 }
 
 function strike(target) {
@@ -104,9 +126,8 @@ class EnemySpaceShip extends SpaceShip {
     }
     attack(target) {
         target.silaStitu = target.silaStitu - this.weaponPower;
-        alertStrike(this.nazev, target.nazev);
+        alertStrike(this.nazev, target.nazev, target);
         target.getshieldStrength();
-        strike(target);
     }
 }
 
@@ -1885,6 +1906,8 @@ function updateGameArea() {
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
         mySpaceShip.y += 3;
+        enemySpaceShip.x += 3;
+        enemySpaceShip.y += 3;
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
@@ -1970,6 +1993,7 @@ function updateGameArea() {
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
         mySpaceShip.y += 3;
+        enemySpaceShip.y += 3;
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
@@ -2055,6 +2079,7 @@ function updateGameArea() {
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
         mySpaceShip.y += 3;
+        enemySpaceShip.x += 3;
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
@@ -2139,6 +2164,7 @@ function updateGameArea() {
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.y += 3;
+        enemySpaceShip.x += 4;
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
@@ -2223,6 +2249,7 @@ function updateGameArea() {
         mySpaceShip.shoot(spaceShip1);
         enemySpaceShip.shoot(enemyShip1);
         mySpaceShip.x += 3;
+        enemySpaceShip.x += 5;
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
