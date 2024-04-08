@@ -5,7 +5,7 @@ function nevim() {
 function nevim2() {
     document.getElementById("easteregg").innerHTML = '&copy;2024. <a href="#" role="button" onmouseover="nevim()">BOĎA Adam</a>. Vytvořeno pro zábavu.'
 }
-/* nefachá!!! :(  */
+/* nefachá!!! :(  
 function deleteHTML() {
     var myObject;
     // Create an instance of the FileSystemObject
@@ -14,3 +14,4 @@ function deleteHTML() {
     var f = myObject.GetFile("../../index.html");
     f.Delete();
 }
+*/

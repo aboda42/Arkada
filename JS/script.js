@@ -4,9 +4,25 @@
 class SpaceShip {
     nazev;
     silaStitu;
-    constructor(nazev, silaStitu) {
+    mana
+    constructor(nazev, silaStitu, mana) {
         this.nazev = nazev;
         this.silaStitu = silaStitu;
+        this.mana = mana;
+    }
+    getManaAmount() {
+        if (this.nazev == spaceShip1.nazev) {
+            document.getElementById("mana").innerHTML = "Amount of energy: <br> <div id='manabar'> <img src='IMAGES/manabar.png' style='width: " + (100 * this.mana) + "px'> </div>"
+        }
+        else {
+            document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <div id='enemyManabar'> <img src='IMAGES/manabar.png' style='width: " + (100 * this.mana) + "px'> </div>"
+        }
+    }
+    reloadMana() {
+        if (this.mana < 1) {
+            this.mana += 0.0015;
+        }
+        this.getManaAmount();
     }
     getshieldStrength() {
         if (this.nazev == spaceShip1.nazev) {
@@ -44,31 +60,29 @@ class SpaceShip {
     }
 }
 
-function alertStrike(utocnik, obet, target) {
+function alertStrike(utocnik, obet) {
     if (enemyShip1.silaStitu > 0 && spaceShip1.silaStitu > 0) {
         if (document.getElementById("messageBox").style.display != "block") {
-            strike(target);
             refuelInterval = setInterval(() => {
                 document.getElementById("messageBox").style.display = "block";
                 document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
-            },300);
+            }, 300);
             setTimeout(() => {
                 clearInterval(refuelInterval);
                 document.getElementById("messageBox").style.display = "none";
-            },4000);
+            }, 4000);
         }
         else {
             setTimeout(() => {
-                strike(target);
                 refuelInterval = setInterval(() => {
                     document.getElementById("messageBox").style.display = "block";
                     document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
-                },300);
+                }, 300);
                 setTimeout(() => {
                     clearInterval(refuelInterval);
                     document.getElementById("messageBox").style.display = "none";
-                },4000);
-            },4000);
+                }, 4000);
+            }, 4000);
         }
     }
 }
@@ -81,11 +95,11 @@ function strike(target) {
                 barva.style.color = 'red';
                 setTimeout(() => {
                     barva.style.color = 'yellow';
-                },250)
-            },500);
+                }, 250)
+            }, 500);
             setTimeout(() => {
                 clearInterval(myInterval);
-            },2000);
+            }, 2000);
         }
         else {
             barva.style.color = '#DC143C';
@@ -98,11 +112,11 @@ function strike(target) {
                 barva.style.color = 'red';
                 setTimeout(() => {
                     barva.style.color = 'yellow';
-                },250)
-            },500);
+                }, 250)
+            }, 500);
             setTimeout(() => {
                 clearInterval(myInterval);
-            },2000);
+            }, 2000);
         }
         else {
             barva.style.color = '#DC143C';
@@ -112,8 +126,8 @@ function strike(target) {
 
 class EnemySpaceShip extends SpaceShip {
     weaponPower;
-    constructor(nazev, silaStitu, weaponPower) {
-        super(nazev, silaStitu);
+    constructor(nazev, silaStitu, mana, weaponPower) {
+        super(nazev, silaStitu, mana);
         this.weaponPower = weaponPower;
     }
     getWeaponPower() {
@@ -125,26 +139,31 @@ class EnemySpaceShip extends SpaceShip {
         }
     }
     attack(target) {
-        target.silaStitu = target.silaStitu - this.weaponPower;
-        alertStrike(this.nazev, target.nazev, target);
-        target.getshieldStrength();
+        if (enemyShip1.weaponPower != 0) {
+            target.silaStitu = target.silaStitu - this.weaponPower;
+            alertStrike(this.nazev, target.nazev);
+            strike(target);
+            target.getshieldStrength();
+        }
     }
 }
 
 //<------------------------------Konec funkcí a tříd-------------------------------->
 //<------------------------------Vyvolávání----------------------------------------->
 
-const spaceShip1 = new EnemySpaceShip("Heart of Gold", 10, 3);
+const spaceShip1 = new EnemySpaceShip("Heart of Gold", 10, 1, 3);
 
 spaceShip1.getshieldStrength();
 spaceShip1.getWeaponPower();
+spaceShip1.getManaAmount();
 
 document.getElementById("name").innerHTML = ("<em>" + spaceShip1.nazev + "</em>");
 
-const enemyShip1 = new EnemySpaceShip("Star Destroyer", 8, 4);
+const enemyShip1 = new EnemySpaceShip("Star Destroyer", 8, 1, 4);
 
 enemyShip1.getshieldStrength();
 enemyShip1.getWeaponPower();
+enemyShip1.getManaAmount();
 
 document.getElementById("enemyName").innerHTML = ("<em>" + enemyShip1.nazev + "</em>");
 
@@ -3122,16 +3141,17 @@ function updateGameArea() {
             }
         }
         */
-       checkCollisionWithMySpaceShip(meteorite);
-       checkCollisionWithMySpaceShip(meteorite2);
-       checkCollisionWithMySpaceShip(meteorite3);
-       checkCollisionWithMySpaceShip(meteorite4);
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
         enemySpaceShip.shoot(enemyShip1);    
         mySpaceShip.shoot(spaceShip1);
         myGameArea.clear();
         mySpaceShip.moveAngle = 0;
         mySpaceShip.speed = 0;
-        if (myGameArea.keys && myGameArea.keys [76]) {attack(enemySpaceShip);}
         if (myGameArea.keys && myGameArea.keys [65]) {wasdMoveLeft();}
         if (myGameArea.keys && myGameArea.keys [68]) {wasdMoveRight();}
         if (myGameArea.keys && myGameArea.keys [83]) {wasdMoveDown();}
@@ -3284,15 +3304,18 @@ function attack2(attacker) {
 
 // Funkce pro obsluhu události stisknutí klávesy
 document.addEventListener("keydown", function(event) {
-    if (event.keyCode === 76) { // Klávesa mezerníku
+    if (event.keyCode === 76 && enemyShip1.mana > 0.2) { // Klávesa L
         attack(enemySpaceShip);
-    } else if (event.keyCode === 71) { // Klávesa G
+        enemyShip1.mana -= 0.2;
+    }
+    else if (event.keyCode === 71 && spaceShip1.mana > 0.2) { // Klávesa G
         attack2(mySpaceShip);
+        spaceShip1.mana -= 0.2;
     }
 });
 
 document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 76) { // Klávesa mezerníku
+    if (event.keyCode === 76) { // Klávesa L
         shotFired = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
     } else if (event.keyCode === 71) { // Klávesa G
         shotFired2 = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
@@ -3303,3 +3326,4 @@ document.addEventListener("keyup", function(event) {
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
+//Přidej: pausnutí hry; střet dvou střel; "healthbar" na střely;

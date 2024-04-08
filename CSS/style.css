@@ -19,7 +19,6 @@ section {
 }
 
 footer {
-    
     color:#ff00ff;
     bottom: 0;
     position:fixed;
@@ -130,4 +129,13 @@ canvas {
     height: 50px;
     width:180px;
     font-size: large;
+}
+
+#mana, #enemyMana {
+    margin-top: 15px;
+}
+
+#manabar img, #enemyMana img {
+    border: 2px solid yellow;
+    height:10px;
 }
