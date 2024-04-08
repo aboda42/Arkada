@@ -189,9 +189,7 @@ document.getElementById("enemyName").innerHTML = ("<em>" + enemyShip1.nazev + "<
 
 document.getElementById("reloadButton").style.display = "none";
 
-const hlasky = ["HEY, YOU CLICKED ON ME!","STOP IT!","WHY ARE YOU CLICKING ON ME!?!","YOU PERVERT, STOP TOUCHING ME!","DON'T TOUCH ME AGAIN, OR I WILL TOUCH YOUR MOM!","WHY ARE YOU BULLYING ME!?!"];
-
-let aggro = 0;
+const hlasky = ["HEY, YOU CLICKED ON ME!","STOP IT!","WHY ARE YOU CLICKING ON ME!?!","YOU PERVERT, STOP TOUCHING ME!","WHY ARE YOU BULLYING ME!?!"];
 
 function reloadButton() {
     document.getElementById("reloadButton").style.display = "block";
@@ -202,25 +200,13 @@ function reload() {
 }
 
 function jaJaAJenomJa() {
-    aggro = aggro + 1;
-    if (aggro == 7) {
-        document.getElementById("easteregg").innerHTML = "&copy;2024. <a href='FONTS/EASTEREGG/index2.html' role='button' onclick='jaJaAJenomJa()'>BOĎA Adam</a>. Vytvořeno pro zábavu."
-        document.getElementById('sipkaDolu').style.display = 'block';
-        document.getElementById("sipkaDolu").innerHTML = "ONE MORE TIME YOU CLICK ON ME, AND YOU WILL GET BANNED!!!";
-        setTimeout(() => {
-            const disappearing = document.getElementById('sipkaDolu');
-            disappearing.style.display = 'none';
-        },4000);
-    }
-    else {
-        let n = Math.floor(Math.random()*(6))+0;
-        document.getElementById('sipkaDolu').style.display = 'block';
-        document.getElementById("sipkaDolu").innerHTML = hlasky[n];
-        setTimeout(() => {
-            const disappearing = document.getElementById('sipkaDolu');
-            disappearing.style.display = 'none';
-        },2500);
-    }
+    let n = Math.floor(Math.random()*(5))+0;
+    document.getElementById('sipkaDolu').style.display = 'block';
+    document.getElementById("sipkaDolu").innerHTML = hlasky[n];
+    setTimeout(() => {
+        const disappearing = document.getElementById('sipkaDolu');
+        disappearing.style.display = 'none';
+    },2500);
 }
 
 //<-------------------------Konec eastereggu---------------------------------------->
@@ -1018,10 +1004,10 @@ function updateGameArea() {
     if (myGameArea.keys && myGameArea.keys [87]) {wasdMoveUp();}
     enemySpaceShip.moveAngle = 0;
     enemySpaceShip.speed = 0;
-    if (myGameArea.keys && myGameArea.keys [37]) {enemySpaceShip.moveAngle = -2.5; }
-    if (myGameArea.keys && myGameArea.keys [39]) {enemySpaceShip.moveAngle = 2.5 }
-    if (myGameArea.keys && myGameArea.keys [40]) {enemySpaceShip.speed = -1.5; }
-    if (myGameArea.keys && myGameArea.keys [38]) {enemySpaceShip.speed = 2.5; }
+    if (myGameArea.keys && myGameArea.keys [37]) {arrowMoveLeft();}
+    if (myGameArea.keys && myGameArea.keys [39]) {arrowMoveRight();}
+    if (myGameArea.keys && myGameArea.keys [40]) {arrowMoveDown();}
+    if (myGameArea.keys && myGameArea.keys [38]) {arrowMoveUp();}
     mySpaceShip.newPos();
     enemySpaceShip.newPos();
     mySpaceShip.update();
@@ -1109,6 +1095,22 @@ function meteoriteCrashWith(ship, meteorite) {
 }
 */
 
+function arrowMoveUp() {
+    enemySpaceShip.speed = 2.5;
+}
+
+function arrowMoveDown() {
+    enemySpaceShip.speed = -1.5;
+}
+
+function arrowMoveLeft() {
+    enemySpaceShip.moveAngle = -2.5;
+}
+
+function arrowMoveRight() {
+    enemySpaceShip.moveAngle = 2.5;
+}
+
 function wasdMoveUp() {
     mySpaceShip.speed = 2.5;
 }
@@ -1186,4 +1188,4 @@ document.addEventListener("keyup", function(event) {
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
-//Přidej: pausnutí hry; střet dvou střel; střet lodě s meteoritem; střet lodí; powerupy; single-/multiplayer; dodělej easteregg (python/php?); ...
+//Přidej: pausnutí hry; střet dvou střel; střet lodě s meteoritem; střet lodí; ????powerupy????; single-/multiplayer; ...
