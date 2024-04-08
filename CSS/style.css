@@ -11,7 +11,7 @@ body {
 }
 
 header {
-    color:blue;
+    color:#00FFFF;
 }
 
 section {
@@ -19,7 +19,8 @@ section {
 }
 
 footer {
-    color:yellow;
+    
+    color:#ff00ff;
     bottom: 0;
     position:fixed;
     padding-left: 39em;
@@ -30,25 +31,55 @@ ul {
 }
 
 footer a {
-    color:yellow;
+    color:#ff00ff;
     text-decoration:none;
 }
 
-#enemyShipButton button, #enemyShipButtonUp button, #spaceShipButton button, #spaceShipButtonW button {
-    height:50px;
-    width:50px;
-    font-size: larger;
+#enemyName, #name {
+    margin-left:30px;
 }
 
-#spaceShipButtonW, #spaceShipButton {
-    margin-right: 10px;
+#hlavniPlocha h3 {
+    margin-left:35px;
+}
+
+#shipButtons, #enemyButtons {
+    margin-top: 20px;
+    font-weight: bold;
+    margin-left:130px;
+    padding-top: 15px;
+    background-color: black;
+    text-align: center;
+    width:160px;
+    height:40px;
+    border: 2px solid yellow;
+    border-radius: 7px;
+}
+
+#wasd, #arrows {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left:8vw;
+}
+
+#enemyShipButton div, #enemyShipButtonUp, #spaceShipButton div, #spaceShipButtonW {
+    height:50px;
+    width:50px;
+    border: 2px solid yellow;
+    border-radius: 7px;
+    background-color: black;
 }
 
 #spaceShipButtonW, #enemyShipButtonUp {
-    margin-bottom: 4px;
+    margin-bottom:8px;
+    margin-left: 61px;
 }
 
-#spaceShipControlers {
+#spaceShipButton div, #enemyShipButton div {
+    margin-right:8px;
+}
+
+#spaceShipButton, #enemyShipButton {
     display:flex;
 }
 
@@ -59,7 +90,6 @@ footer a {
 
 #hlavniPlocha {
     display:flex;
-    margin-bottom: 10px;
 }
 
 #vesmirnaLod {
@@ -68,6 +98,7 @@ footer a {
 }
 
 #hraciPole {
+    margin-top: 50px;
     order:2;
     flex:2;
 }
@@ -82,12 +113,7 @@ canvas {
     background-color: black;
 }
 
-#wasd {
-    margin-left: 100px;
-    margin-right:235px;
-}
-
-#messageBox, #inputBox {
+#messageBox {
     background-color: black;
     margin-left: 500px;
     font-size: larger;
@@ -105,4 +131,3 @@ canvas {
     width:180px;
     font-size: large;
 }
-

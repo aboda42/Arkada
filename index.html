@@ -7,25 +7,14 @@
         <link rel="stylesheet" href="CSS/style.css" type="text/css">
         <link rel="shortcut icon" href="IMAGES/ikona.ico">
         <title>
-            SpaceShip Destroyer – v3.42.66
+            SpaceShip Destroyer – v4.0
         </title>
     </head>
     <body onload="startGame()">
-<!--
-        <div id="inputBox">
-            <p>
-                Enter the amount of fuel to be added:<br>
-                <form>
-                    <input type="text" id="input">
-                </form>
-                <button>Submit</button>
-            </p>
-        </div>
--->        
         <div id="messageBox"></div>
         <header>
             <h1 id="h1">
-                SpaceShip Destroyer – v3.42.66
+                SpaceShip Destroyer – v4.0
             </h1>
         </header>
         </section>
@@ -35,39 +24,27 @@
                     <h2 id="name"></h2>
                     <ul>
                         <li id="position"></li>
-                        <li id="fuel"></li>
                         <li id="shield"></li>
-                        <li id="consumption"></li>
+                        <li id="weaponPower"></li>
                     </ul>
+                    <h3>Controllers:</h3>
+                    <div id="wasd">
+                        <div id="spaceShipButtonW">
+                            W
+                        </div>
+                        <div id="spaceShipButton">
+                            <div>A</div>
+                            <div>S</div>
+                            <div>D</div>
+                        </div>
+                    </div>
                     <div id="shipButtons">
-                        <button onclick="spaceShip1.refuel()">Refill fuel</button>
+                        Attack (G)
                     </div>
                 </div>
                 <div id="hraciPole">
                     <div id="tabulka">
                         <div id="spaceShipCanvas"></div>
-                        <div id="spaceShipControlers">
-                            <div id="wasd">
-                                <div id="spaceShipButtonW">
-                                    <button onkeydown="wasdMoveUp()" onkeyup="myStopMove()">W</button>
-                                </div>
-                                <div id="spaceShipButton">
-                                    <button onkeydown="wasdMoveLeft()" onkeyup="myStopMove()">A</button>
-                                    <button onkeydown="wasdMoveDown()" onkeyup="myStopMove()">S</button>
-                                    <button onkeydown="wasdMoveRight()" onkeyup="myStopMove()">D</button>
-                                </div>
-                            </div>
-                            <div id="arrows">
-                                <div id="enemyShipButtonUp">
-                                    <button onmousedown="arrowMoveUp()" onmouseup="enemyStopMove()">↑</button>
-                                </div>
-                                <div id="enemyShipButton">
-                                    <button onmousedown="arrowMoveLeft()" onmouseup="enemyStopMove()">←</button>
-                                    <button onmousedown="arrowMoveDown()" onmouseup="enemyStopMove()">↓</button>
-                                    <button onmousedown="arrowMoveRight()" onmouseup="enemyStopMove()">→</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div id="reloadButton">
                         <button onclick="reload()">New game</button>
@@ -77,14 +54,22 @@
                     <h2 id="enemyName"></h2>
                     <ul>
                         <li id="enemyPosition"></li>
-                        <li id="enemyFuel"></li>
                         <li id="enemyShield"></li>
-                        <li id="enemyConsumption"></li>
                         <li id="enemyWeaponPower"></li>
                     </ul>
+                    <h3>Controllers:</h3>
+                    <div id="arrows">
+                        <div id="enemyShipButtonUp">
+                            ↑
+                        </div>
+                        <div id="enemyShipButton">
+                            <div>←</div>
+                            <div>↓</div>
+                            <div>→</div>
+                        </div>
+                    </div>
                     <div id="enemyButtons">
-                        <button onclick="enemyShip1.refuel()">Refill fuel</button>
-                        <button onclick="attack(enemySpaceShip)">Attack (Space)</button>
+                        Attack (L)
                     </div>
                 </div>
             </section>
@@ -92,7 +77,7 @@
         </div>
         <script src="JS/script.js"></script>
         <footer>
-            <p>
+            <p id="easteregg">
                 &copy;2024. <a href="#" role="button" onclick="jaJaAJenomJa()">BOĎA Adam</a>. Vytvořeno pro zábavu.
             </p>
         </footer>
