@@ -218,6 +218,9 @@ function jaJaAJenomJa() {
 
 //<--------------------------Canvas------------------------------------------------->
 
+var pause = false;
+var pauseAccomplished = true;
+
 var mySpaceShip, enemySpaceShip;
 
 var levaStena, pravaStena, horniStena, spodniStena;
@@ -405,7 +408,7 @@ function checkCollisionWithMySpaceShip(shoot) {
         }
         return false;
     }
-    /*
+/*    
     else if (shoot == projectile) {
         for (let i = 0; i <= n; i++) {
             for (let j = 0; j <= m; j++) {
@@ -422,7 +425,7 @@ function checkCollisionWithMySpaceShip(shoot) {
             }
         }
     }
-    */
+*/    
     else if (shoot == meteorite) {
         for (let i = 0; i <= numberOfMeteorites; i++) {
             for (let j = 0; j <= m; j++) {
@@ -545,512 +548,547 @@ function checkCollisionWithMySpaceShip(shoot) {
     }
 }
 
+function updatePause() {
+    if (pauseAccomplished == true) {
+        switch (pause) {
+            case true:
+                pause = false;
+                break;
+            case false:
+                pause = true;
+        }
+        pauseAccomplished = false; //toto zajistí, aby se hodnota <<pause>> mohla změnit pouze jednou během jednoho zmáčknutí tlačítka
+    }
+}
+
 function updateGameArea() {
-    if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-        enemySpaceShip.x -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-        enemySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.x += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.x += 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.x += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.x += 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.y += 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        mySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.y -= 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.y -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-        mySpaceShip.x += 3;
-    }
-    else if (enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        enemySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(horniStena)) {
-        mySpaceShip.y += 3;
-    }
-    else if (enemySpaceShip.crashWith(horniStena)) {
-        enemySpaceShip.y += 3;
-    }
-    else if (mySpaceShip.crashWith(spodniStena)) {
-        mySpaceShip.y -= 3;
-    }
-    else if (enemySpaceShip.crashWith(spodniStena)) {
-        enemySpaceShip.y -= 3;
-    }
-    else if (mySpaceShip.crashWith(pravaStena)) {
-        mySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(pravaStena)) {
-        enemySpaceShip.x -= 3;
-    }
-    else if (enemySpaceShip.crashWith(levaStena)) {
-        enemySpaceShip.x += 3;
-    }
-    else if (mySpaceShip.crashWith(levaStena)) {
-        mySpaceShip.x += 3;
-    }
-    let a = Math.floor(Math.random()*(600)+0);
-    let b = Math.floor(Math.random()*(600)+0);
-    let c = Math.floor(Math.random()*(600)+0);
-    let d = Math.floor(Math.random()*(600)+0);
-    if (meteoriteCreation[a]) {
-        let x = (Math.random()*(101)-50);
-        numberOfMeteorites += 1;
-        meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
-        meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
-    }
-    if (meteoriteCreation2[b]) {
-        let x = (Math.random()*(61)-120);
-        numberOfMeteorites2 += 1;
-        meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
-        meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
-    }
-    if (meteoriteCreation3[c]) {
-        let x = (Math.random()*(101)+130);
-        numberOfMeteorites3 += 1;
-        meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
-        meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
-    }
-    if (meteoriteCreation4[d]) {
-        let x = (Math.random()*(61)+60);
-        numberOfMeteorites4 += 1;
-        meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
-        meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
-    }
-/*
+    if (pause == false) {
+        document.getElementById("pauseScreen").style.display = "none";
+        document.getElementById("h1").style.filter = "blur(0px)";
+        document.getElementById("vesmirnaLod").style.filter = "blur(0px)";
+        document.getElementById("nepratelskaLod").style.filter = "blur(0px)";
+        document.getElementById("easteregg").style.filter = "blur(0px)";
+        document.getElementById("hraciPole").style.filter = "blur(0px)";
+        document.getElementById("sipkaDolu").style.filter = "blur(0px)";
+        if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.y += 3;
+        }   
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+        }   
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+            enemySpaceShip.x -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+            enemySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.x += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.x += 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.x += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.x += 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.y += 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            mySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.y -= 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.y -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+            mySpaceShip.x += 3;
+        }
+        else if (enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            enemySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(horniStena)) {
+            mySpaceShip.y += 3;
+        }
+        else if (enemySpaceShip.crashWith(horniStena)) {
+            enemySpaceShip.y += 3;
+        }
+        else if (mySpaceShip.crashWith(spodniStena)) {
+            mySpaceShip.y -= 3;
+        }
+        else if (enemySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.y -= 3;
+        }
+        else if (mySpaceShip.crashWith(pravaStena)) {
+            mySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
+        }
+        else if (enemySpaceShip.crashWith(levaStena)) {
+            enemySpaceShip.x += 3;
+        }
+        else if (mySpaceShip.crashWith(levaStena)) {
+            mySpaceShip.x += 3;
+        }
+        let a = Math.floor(Math.random()*(600)+0);
+        let b = Math.floor(Math.random()*(600)+0);
+        let c = Math.floor(Math.random()*(600)+0);
+        let d = Math.floor(Math.random()*(600)+0);
+        if (meteoriteCreation[a]) {
+            let x = (Math.random()*(101)-50);
+            numberOfMeteorites += 1;
+            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation2[b]) {
+            let x = (Math.random()*(61)-120);
+            numberOfMeteorites2 += 1;
+            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation3[c]) {
+            let x = (Math.random()*(101)+130);
+            numberOfMeteorites3 += 1;
+            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+        }
+        if (meteoriteCreation4[d]) {
+            let x = (Math.random()*(61)+60);
+            numberOfMeteorites4 += 1;
+            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+        }
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////
     for (let i = 0; i <= numberOfMeteorites; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite[i]) == 0) {
+        if (meteoriteCrashWith(mySpaceShip, meteorite[i])) {
             meteoriteCrashing(meteorite[i], spaceShip1, i);
         }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite[i]) == 0) {
+        else if (meteoriteCrashWith(enemySpaceShip, meteorite[i])) {
             meteoriteCrashing(meteorite[i], enemyShip1, i);
         }
     }
     for (let i = 0; i <= numberOfMeteorites2; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite2[i]) == ) {
+        if (meteoriteCrashWith(mySpaceShip, meteorite2[i])) {
             meteoriteCrashing(meteorite2[i], spaceShip1, i);
         }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite2[i]) == 0) {
+        else if (meteoriteCrashWith(enemySpaceShip, meteorite2[i])) {
             meteoriteCrashing(meteorite2[i], enemyShip1, i);
         }
     }
     for (let i = 0; i <= numberOfMeteorites3; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite3[i]) == 0) {
+        if (meteoriteCrashWith(mySpaceShip, meteorite3[i])) {
             meteoriteCrashing(meteorite3[i], spaceShip1, i);
         }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite3[i]) == 0) {
+        else if (meteoriteCrashWith(enemySpaceShip, meteorite3[i])) {
             meteoriteCrashing(meteorite3[i], enemyShip1, i);
         }
     }
     for (let i = 0; i <= numberOfMeteorites4; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite4[i]) == 0) {
+        if (meteoriteCrashWith(mySpaceShip, meteorite4[i])) {
             meteoriteCrashing(meteorite4[i], spaceShip1, i);
         }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite4[i]) == 0) {
+        else if (meteoriteCrashWith(enemySpaceShip, meteorite4[i])) {
             meteoriteCrashing(meteorite4[i], enemyShip1, i);
         }
     }
-*/
-    checkCollisionWithMySpaceShip(meteorite);
-    checkCollisionWithMySpaceShip(meteorite2);
-    checkCollisionWithMySpaceShip(meteorite3);
-    checkCollisionWithMySpaceShip(meteorite4);
-/*
-    checkCollisionWithMySpaceShip(projectile);
-*/
-    enemyShip1.reloadMana();
-    spaceShip1.reloadMana();
-    enemySpaceShip.shoot(enemyShip1);    
-    mySpaceShip.shoot(spaceShip1);
-    myGameArea.clear();
-    mySpaceShip.moveAngle = 0;
-    mySpaceShip.speed = 0;
-    if (myGameArea.keys && myGameArea.keys [65]) {wasdMoveLeft();}
-    if (myGameArea.keys && myGameArea.keys [68]) {wasdMoveRight();}
-    if (myGameArea.keys && myGameArea.keys [83]) {wasdMoveDown();}
-    if (myGameArea.keys && myGameArea.keys [87]) {wasdMoveUp();}
-    enemySpaceShip.moveAngle = 0;
-    enemySpaceShip.speed = 0;
-    if (myGameArea.keys && myGameArea.keys [37]) {arrowMoveLeft();}
-    if (myGameArea.keys && myGameArea.keys [39]) {arrowMoveRight();}
-    if (myGameArea.keys && myGameArea.keys [40]) {arrowMoveDown();}
-    if (myGameArea.keys && myGameArea.keys [38]) {arrowMoveUp();}
-    mySpaceShip.newPos();
-    enemySpaceShip.newPos();
-    mySpaceShip.update();
-    enemySpaceShip.update();
-    for (let i = 0; i <= numberOfMeteorites; i++) {
-        let rychlost = (Math.random()*(3)+2)
-        meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
-        meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
-        meteorite[i].update();
+*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        checkCollisionWithMySpaceShip(meteorite);
+        checkCollisionWithMySpaceShip(meteorite2);
+        checkCollisionWithMySpaceShip(meteorite3);
+        checkCollisionWithMySpaceShip(meteorite4);
+
+//    checkCollisionWithMySpaceShip(projectile);
+
+        enemyShip1.reloadMana();
+        spaceShip1.reloadMana();
+        enemySpaceShip.shoot(enemyShip1);    
+        mySpaceShip.shoot(spaceShip1);
+        myGameArea.clear();
+        mySpaceShip.moveAngle = 0;
+        mySpaceShip.speed = 0;
+        if (myGameArea.keys && myGameArea.keys [65]) {wasdMoveLeft();}
+        if (myGameArea.keys && myGameArea.keys [68]) {wasdMoveRight();}
+        if (myGameArea.keys && myGameArea.keys [83]) {wasdMoveDown();}
+        if (myGameArea.keys && myGameArea.keys [87]) {wasdMoveUp();}
+        enemySpaceShip.moveAngle = 0;
+        enemySpaceShip.speed = 0;
+        if (myGameArea.keys && myGameArea.keys [37]) {arrowMoveLeft();}
+        if (myGameArea.keys && myGameArea.keys [39]) {arrowMoveRight();}
+        if (myGameArea.keys && myGameArea.keys [40]) {arrowMoveDown();}
+        if (myGameArea.keys && myGameArea.keys [38]) {arrowMoveUp();}
+        mySpaceShip.newPos();
+        enemySpaceShip.newPos();
+        mySpaceShip.update();
+        enemySpaceShip.update();
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite[i].x += rychlost * Math.sin(meteoriteAngle[i]);
+            meteorite[i].y += rychlost * Math.cos(meteoriteAngle[i]);
+            meteorite[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
+            meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
+            meteorite2[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
+            meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
+            meteorite3[i].update();
+        }
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            let rychlost = (Math.random()*(3)+2)
+            meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
+            meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
+            meteorite4[i].update();
+        }
+        for (let i = 0; i <= m; i++) {
+            strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
+            strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
+            strelaShipPole[i].update();
+        }
+        for (let i = 0; i <= n; i++) {
+            strelaPole[i].x += 5 * Math.sin(strelaAngle[i]);
+            strelaPole[i].y -= 5 * Math.cos(strelaAngle[i]);
+            strelaPole[i].update();
+        }
     }
-    for (let i = 0; i <= numberOfMeteorites2; i++) {
-        let rychlost = (Math.random()*(3)+2)
-        meteorite2[i].x += rychlost * Math.sin(meteoriteAngle2[i]);
-        meteorite2[i].y += rychlost * Math.cos(meteoriteAngle2[i]);
-        meteorite2[i].update();
-    }
-    for (let i = 0; i <= numberOfMeteorites3; i++) {
-        let rychlost = (Math.random()*(3)+2)
-        meteorite3[i].x += rychlost * Math.sin(meteoriteAngle3[i]);
-        meteorite3[i].y += rychlost * Math.cos(meteoriteAngle3[i]);
-        meteorite3[i].update();
-    }
-    for (let i = 0; i <= numberOfMeteorites4; i++) {
-        let rychlost = (Math.random()*(3)+2)
-        meteorite4[i].x += rychlost * Math.sin(meteoriteAngle4[i]);
-        meteorite4[i].y += rychlost * Math.cos(meteoriteAngle4[i]);
-        meteorite4[i].update();
-    }
-    for (let i = 0; i <= m; i++) {
-        strelaShipPole[i].x += 5 * Math.sin(strelaShipAngle[i]);
-        strelaShipPole[i].y -= 5 * Math.cos(strelaShipAngle[i]);
-        strelaShipPole[i].update();
-    }
-    for (let i = 0; i <= n; i++) {
-        strelaPole[i].x += 5 * Math.sin(strelaAngle[i]);
-        strelaPole[i].y -= 5 * Math.cos(strelaAngle[i]);
-        strelaPole[i].update();
+    else if (pause == true) {
+        pauseScreen();
     }
 }
 
-/*
+function pauseScreen() {
+    document.getElementById("pauseScreen").style.display = "block";
+    document.getElementById("h1").style.filter = "blur(10px)";
+    document.getElementById("vesmirnaLod").style.filter = "blur(10px)";
+    document.getElementById("nepratelskaLod").style.filter = "blur(10px)";
+    document.getElementById("easteregg").style.filter = "blur(10px)";
+    document.getElementById("hraciPole").style.filter = "blur(10px)";
+    document.getElementById("sipkaDolu").style.filter = "blur(10px)";
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////
 function meteoriteCrashing(meteoriteType, target, k) {
-    meteoriteType.spilce(k,1);
+    meteoriteType.splice(k,1);
     if (meteoriteType == meteorite[i]) {
         numberOfMeteorites--;
     }
@@ -1065,6 +1103,9 @@ function meteoriteCrashing(meteoriteType, target, k) {
     }
     target.silaStitu -= 2;
     target.getshieldStrength();
+    //maGameArea.clear();
+    //meteoriteType.update();
+    //target.update();
     refuelInterval = setInterval(() => {
         document.getElementById("messageBox").style.display = "block";
         document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
@@ -1091,9 +1132,9 @@ function meteoriteCrashWith(ship, meteorite) {
     else {
         crashed = true;
     }
-    return
+    return crashed;
 }
-*/
+*////////////////////////////////////////////////////////////////////////////////////
 
 function arrowMoveUp() {
     enemySpaceShip.speed = 2.5;
@@ -1109,7 +1150,7 @@ function arrowMoveLeft() {
 
 function arrowMoveRight() {
     enemySpaceShip.moveAngle = 2.5;
-}
+} 
 
 function wasdMoveUp() {
     mySpaceShip.speed = 2.5;
@@ -1141,6 +1182,7 @@ function position(ship) {
 }
 
 //<------------------AI potahala:--------------------------------------------------->
+// Zde je třeba uvést, že ne vše v této části kódu udělala AI, pouze asi 2/3!!!
 
 // Proměnná sledující, zda již byla provedena střelba
 var shotFired = false;
@@ -1167,20 +1209,27 @@ function attack2(attacker) {
 
 // Funkce pro obsluhu události stisknutí klávesy
 document.addEventListener("keydown", function(event) {
+    if (event.keyCode === 32) {
+        updatePause(); //když se zmáčkne mezerník, tak se spustí tato fce, která změní hodnotu <<pause>>
+    }
     if (event.keyCode === 76 && enemyShip1.mana > 0.2) { // Klávesa L
         attack(enemySpaceShip);
         enemyShip1.mana -= 0.2;
     }
-    else if (event.keyCode === 71 && spaceShip1.mana > 0.2) { // Klávesa G
+    if (event.keyCode === 71 && spaceShip1.mana > 0.2) { // Klávesa G
         attack2(mySpaceShip);
         spaceShip1.mana -= 0.2;
     }
 });
 
 document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 32) {
+        pauseAccomplished = true
+    }
     if (event.keyCode === 76) { // Klávesa L
         shotFired = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
-    } else if (event.keyCode === 71) { // Klávesa G
+    }
+    if (event.keyCode === 71) { // Klávesa G
         shotFired2 = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
     }
 });
@@ -1188,4 +1237,11 @@ document.addEventListener("keyup", function(event) {
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
-//Přidej: pausnutí hry; střet dvou střel; střet lodě s meteoritem; střet lodí; ????powerupy????; single-/multiplayer; ...
+//Přidej: střet dvou střel; střet lodě s meteoritem; střet lodí; powerupy; ???single-/multiplayer???; guidebook?; srdce jako životy; 
+
+/*
+git add --all
+git status
+git commit -m "blablabla"
+git push origin
+*/

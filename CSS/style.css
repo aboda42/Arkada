@@ -112,6 +112,13 @@ canvas {
     background-color: black;
 }
 
+#pauseScreen {
+    margin-left: 41vw;
+    color:yellow;
+    position:fixed;
+    display:none;
+}
+
 #messageBox {
     background-color: black;
     margin-left: 32vw;
@@ -133,10 +140,6 @@ canvas {
 
 #mana, #enemyMana {
     margin-top: 15px;
-}
-
-#mana svg, #enemyMana svg {
-    background-image: url('../IMAGES/manaBackground.png');
 }
 
 #manabar img, #enemyMana img {
