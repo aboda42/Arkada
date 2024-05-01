@@ -74,22 +74,26 @@ function alertStrike(utocnik, obet) {
     if (enemyShip1.silaStitu > 0 && spaceShip1.silaStitu > 0) {
         if (document.getElementById("messageBox").style.display != "block") {
             refuelInterval = setInterval(() => {
+                document.getElementById("h1").style.visibility = "hidden";
                 document.getElementById("messageBox").style.display = "block";
                 document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
             }, 300);
             setTimeout(() => {
                 clearInterval(refuelInterval);
+                document.getElementById("h1").style.visibility = "visible";
                 document.getElementById("messageBox").style.display = "none";
             }, 4000);
         }
         else {
             setTimeout(() => {
                 refuelInterval = setInterval(() => {
+                    document.getElementById("h1").style.visibility = "hidden";
                     document.getElementById("messageBox").style.display = "block";
                     document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
                 }, 300);
                 setTimeout(() => {
                     clearInterval(refuelInterval);
+                    document.getElementById("h1").style.visibility = "visible";
                     document.getElementById("messageBox").style.display = "none";
                 }, 4000);
             }, 4000);
@@ -562,7 +566,10 @@ function updatePause() {
 }
 
 function updateGameArea() {
-    if (pause == false) {
+    if (pause == true) {
+        pauseScreen();
+    }
+    else if (pause == false) {
         document.getElementById("pauseScreen").style.display = "none";
         document.getElementById("h1").style.filter = "blur(0px)";
         document.getElementById("vesmirnaLod").style.filter = "blur(0px)";
@@ -974,7 +981,6 @@ function updateGameArea() {
             meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
             meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
         }
-/*/////////////////////////////////////////////////////////////////////////////////////////////////////
     for (let i = 0; i <= numberOfMeteorites; i++) {
         if (meteoriteCrashWith(mySpaceShip, meteorite[i])) {
             meteoriteCrashing(meteorite[i], spaceShip1, i);
@@ -1007,7 +1013,6 @@ function updateGameArea() {
             meteoriteCrashing(meteorite4[i], enemyShip1, i);
         }
     }
-*/////////////////////////////////////////////////////////////////////////////////////////////////////////
         checkCollisionWithMySpaceShip(meteorite);
         checkCollisionWithMySpaceShip(meteorite2);
         checkCollisionWithMySpaceShip(meteorite3);
@@ -1071,9 +1076,6 @@ function updateGameArea() {
             strelaPole[i].update();
         }
     }
-    else if (pause == true) {
-        pauseScreen();
-    }
 }
 
 function pauseScreen() {
@@ -1086,45 +1088,64 @@ function pauseScreen() {
     document.getElementById("sipkaDolu").style.filter = "blur(10px)";
 }
 
-/*//////////////////////////////////////////////////////////////////////////////////
-function meteoriteCrashing(meteoriteType, target, k) {
-    meteoriteType.splice(k,1);
-    if (meteoriteType == meteorite[i]) {
-        numberOfMeteorites--;
-    }
-    else if (meteoriteType == meteorite2[i]) {
-        numberOfMeteorites2--;
-    }
-    else if (meteoriteType == meteorite3[i]) {
-        numberOfMeteorites3--;
-    }
-    else if (meteoriteType == meteorite4[i]) {
-        numberOfMeteorites4--;
+function meteoriteCrashing(meteoriteType,target,k) {
+    switch(meteoriteType) {
+        case meteorite[k]:
+            meteorite.splice(k,1);
+            numberOfMeteorites--;
+            break;
+        case meteorite2[k]:
+            meteorite2.splice(k,1);
+            numberOfMeteorites2--;
+            break;
+        case meteorite3[k]:
+            meteorite3.splice(k,1);
+            numberOfMeteorites3--;
+            break;
+        case meteorite4[k]:
+            meteorite4.splice(k,1);
+            numberOfMeteorites4--;
     }
     target.silaStitu -= 2;
     target.getshieldStrength();
-    //maGameArea.clear();
-    //meteoriteType.update();
-    //target.update();
-    refuelInterval = setInterval(() => {
-        document.getElementById("messageBox").style.display = "block";
-        document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
-    },300);
-    setTimeout(() => {
-        clearInterval(refuelInterval);
-        document.getElementById("messageBox").style.display = "none";
-    },4000);
+    if (document.getElementById("messageBox").style.display != "block") {
+        refuelInterval = setInterval(() => {
+            document.getElementById("h1").style.visibility = "hidden";
+            document.getElementById("messageBox").style.display = "block";
+            document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
+        },300);
+        setTimeout(() => {
+            clearInterval(refuelInterval);
+            document.getElementById("h1").style.visibility = "visible";
+            document.getElementById("messageBox").style.display = "none";
+        },4000);
+    }
+    else {
+        setTimeout(() => {
+            refuelInterval = setInterval(() => {
+                document.getElementById("h1").style.visibility = "hidden";
+                document.getElementById("messageBox").style.display = "block";
+                document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
+            },300);
+            setTimeout(() => {
+                clearInterval(refuelInterval);
+                document.getElementById("h1").style.visibility = "visible";
+                document.getElementById("messageBox").style.display = "none";
+            },4000);
+        }, 4000);
+    }
+    
 }
 
 function meteoriteCrashWith(ship, meteorite) {
     let shipleft = ship.x;
-    let shipright = ship.x + (ship.width);
+    let shipright = ship.x + (ship.width - 15);
     let shiptop = ship.y;
-    let shipbottom = ship.y + (ship.height);
+    let shipbottom = ship.y + (ship.height - 12);
     let meteoriteleft = meteorite.x;
-    let meteoriteright = meteorite.x + (meteorite.width);
+    let meteoriteright = meteorite.x + (meteorite.width - 15);
     let meteoritetop = meteorite.y;
-    let meteoritebottom = meteorite.y + (meteorite.height);
+    let meteoritebottom = meteorite.y + (meteorite.height - 10);
     var crashed;
     if ((shipbottom < meteoritetop) || (shiptop > meteoritebottom) || (shipright < meteoriteleft) || (shipleft > meteoriteright)) {
         crashed = false;
@@ -1134,7 +1155,6 @@ function meteoriteCrashWith(ship, meteorite) {
     }
     return crashed;
 }
-*////////////////////////////////////////////////////////////////////////////////////
 
 function arrowMoveUp() {
     enemySpaceShip.speed = 2.5;
