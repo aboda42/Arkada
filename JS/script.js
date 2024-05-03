@@ -1,6 +1,6 @@
-//<------------------------------JAVASCRIPT----------------------------------------->
-//<------------------------------Hlavní stránka------------------------------------->
-//<------------------------------Funkce a třídy------------------------------------->
+//<------------------------------JAVASCRIPT v6.0.1 beta----------------------------->
+//<------------------------------Hlavni stranka------------------------------------->
+//<------------------------------Funkce a tridy------------------------------------->
 class SpaceShip {
     nazev;
     silaStitu;
@@ -13,18 +13,18 @@ class SpaceShip {
     getManaAmount() {
         if (this.nazev == spaceShip1.nazev) {
             if (this.mana < 0.2) {
-                document.getElementById("mana").innerHTML = "Amount of energy: <br> <svg id='manabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:red;stroke-width:2;stroke:black'> </svg>"
+                document.getElementById("mana").innerHTML = "Amount of energy: <br> <svg id='manabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:red;stroke-width:2;stroke:black'> </svg>";
             }
             else {
-                document.getElementById("mana").innerHTML = "Amount of energy: <br> <svg id='manabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>"
+                document.getElementById("mana").innerHTML = "Amount of energy: <br> <svg id='manabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>";
             }
         }
         else {
             if (this.mana < 0.2) {
-                document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <svg id='enemyManabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:red;stroke-width:2;stroke:black'> </svg>"
+                document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <svg id='enemyManabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:red;stroke-width:2;stroke:black'> </svg>";
             }
             else {
-                document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <svg id='enemyManabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>"
+                document.getElementById("enemyMana").innerHTML = "Amount of energy: <br> <svg id='enemyManabar' width='120px' height='30px'> <rect height='10px' width='" + (100 * this.mana) + "px' x='11px' y='11px' style='fill:yellow;stroke-width:2;stroke:black'> </svg>";
             }
         }
     }
@@ -34,37 +34,100 @@ class SpaceShip {
         }
         this.getManaAmount();
     }
+
     getshieldStrength() {
         if (this.nazev == spaceShip1.nazev) {
             if (this.silaStitu <= 0) {
+                shotLock = true;
                 enemyShip1.weaponPower = 0;
                 spaceShip1.weaponPower = 0;
-                document.getElementById("enemyButtons").innerHTML = "Attack (Space)";
-                document.getElementById("shipButtons").innerHTML = "Attack (G)";
-                document.getElementById("vesmirnaLod").style.color = "#DC143C";
-                document.getElementById("tabulka").style.color = "chartreuse"
+                document.getElementById("vesmirnaLod").style.color = "red";
+                //document.getElementById("spaceShipButtonW").style.borderColor = "red";            tohle dodelam nekdy pozdeji, az budu mit naladu (nebo nikdy!)
+                document.getElementById("tabulka").style.color = "chartreuse";
                 document.getElementById("tabulka").innerHTML = ("<h1>Spaceship <em>" + this.nazev + "</em> was destroyed. <em>" + enemyShip1.nazev + "</em> won!</h1>");
-                document.getElementById("shield").innerHTML = ("Shield strength: " + this.silaStitu);
+                document.getElementById("shield").innerHTML = ("Shield strength:");
+                document.getElementById("shield").style.paddingBottom = "25px";
                 reloadButton();
             }
             else {
-                document.getElementById("shield").innerHTML = ("Shield strength: " + this.silaStitu);
+                switch (this.silaStitu) {
+                    case 5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/fiveHearts.png' height='20px'>";
+                        break;
+                    case 4.5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/fourAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 4:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/fourHearts.png' height='20px'>";
+                        break;
+                    case 3.5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/threeAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 3:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/threeHearts.png' height='20px'>";
+                        break;
+                    case 2.5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/twoAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 2:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/twoHearts.png' height='20px'>";
+                        break;
+                    case 1.5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/oneAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 1:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/oneHeart.png' height='20px'>";
+                        break;
+                    case 0.5:
+                        document.getElementById("shield").innerHTML = "Shield strength: <br> <img src='IMAGES/halfHeart.png' height='20px'>";
+                }
             }
         }
         else {
             if (this.silaStitu <= 0) {
+                shotLock = true;
                 enemyShip1.weaponPower = 0;
                 spaceShip1.weaponPower = 0;
-                document.getElementById("enemyButtons").innerHTML = "Attack (Space)";
-                document.getElementById("shipButtons").innerHTML = "Attack (G)";
-                document.getElementById("nepratelskaLod").style.color = "#DC143C";
+                document.getElementById("nepratelskaLod").style.color = "red";
+                document.getElementById("enemyManabar").style.fill = "red";
                 document.getElementById("tabulka").style.color = "chartreuse"
                 document.getElementById("tabulka").innerHTML = ("<h1>Spaceship <em>" + this.nazev + "</em> was destroyed. <em>" + spaceShip1.nazev + "</em> won!</h1>");
-                document.getElementById("enemyShield").innerHTML = ("Shield strength: " + this.silaStitu);
+                document.getElementById("enemyShield").innerHTML = ("Shield strength:");
+                document.getElementById("enemyShield").style.paddingBottom = "25px";
                 reloadButton();
             }
             else {
-                document.getElementById("enemyShield").innerHTML = ("Shield strength: " + this.silaStitu);
+                switch (this.silaStitu) {
+                    case 5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/fiveHearts.png' height='20px'>";
+                        break;
+                    case 4.5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/fourAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 4:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/fourHearts.png' height='20px'>";
+                        break;
+                    case 3.5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/threeAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 3:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/threeHearts.png' height='20px'>";
+                        break;
+                    case 2.5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/twoAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 2:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/twoHearts.png' height='20px'>";
+                        break;
+                    case 1.5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/oneAndHalfHearts.png' height='20px'>";
+                        break;
+                    case 1:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/oneHeart.png' height='20px'>";
+                        break;
+                    case 0.5:
+                        document.getElementById("enemyShield").innerHTML = "Shield strength: <br> <img src='IMAGES/halfHeart.png' height='20px'>";
+                }
             }
         }
     }
@@ -86,54 +149,8 @@ function alertStrike(utocnik, obet) {
         }
         else {
             setTimeout(() => {
-                refuelInterval = setInterval(() => {
-                    document.getElementById("h1").style.visibility = "hidden";
-                    document.getElementById("messageBox").style.display = "block";
-                    document.getElementById("messageBox").innerHTML = ("<p>Strike! Spaceship <em>" + utocnik + "</em> shot <em>" + obet + "</em>.</p>");
-                }, 300);
-                setTimeout(() => {
-                    clearInterval(refuelInterval);
-                    document.getElementById("h1").style.visibility = "visible";
-                    document.getElementById("messageBox").style.display = "none";
-                }, 4000);
-            }, 4000);
-        }
-    }
-}
-
-function strike(target) {
-    if (target == enemyShip1) {
-        let barva = document.getElementById("enemyShield");
-        if (target.silaStitu > 0) {
-            myInterval = setInterval(() => {
-                barva.style.color = 'red';
-                setTimeout(() => {
-                    barva.style.color = 'yellow';
-                }, 250)
+                alertStrike(utocnik, obet);
             }, 500);
-            setTimeout(() => {
-                clearInterval(myInterval);
-            }, 2000);
-        }
-        else {
-            barva.style.color = '#DC143C';
-        }
-    }
-    else if (target == spaceShip1) {
-        let barva = document.getElementById("shield");
-        if (target.silaStitu > 0) {
-            myInterval = setInterval(() => {
-                barva.style.color = 'red';
-                setTimeout(() => {
-                    barva.style.color = 'yellow';
-                }, 250)
-            }, 500);
-            setTimeout(() => {
-                clearInterval(myInterval);
-            }, 2000);
-        }
-        else {
-            barva.style.color = '#DC143C';
         }
     }
 }
@@ -144,45 +161,36 @@ class EnemySpaceShip extends SpaceShip {
         super(nazev, silaStitu, mana);
         this.weaponPower = weaponPower;
     }
-    getWeaponPower() {
-        if(this.nazev == "Heart of Gold") {
-            document.getElementById("weaponPower").innerHTML = ("Weapon power: " + this.weaponPower);
-        }
-        else {
-            document.getElementById("enemyWeaponPower").innerHTML = ("Weapon power: " + this.weaponPower);
-        }
-    }
     attack(target) {
         if (enemyShip1.weaponPower != 0) {
             target.silaStitu = target.silaStitu - this.weaponPower;
             alertStrike(this.nazev, target.nazev);
-            strike(target);
             target.getshieldStrength();
         }
     }
 }
 
-//<------------------------------Konec funkcí a tříd-------------------------------->
-//<------------------------------Vyvolávání----------------------------------------->
+//<------------------------------Konec funkci a trid-------------------------------->
+//<------------------------------Vyvolavani----------------------------------------->
 
-const spaceShip1 = new EnemySpaceShip("Heart of Gold", 10, 1, 3);
+var shotLock;
+
+const spaceShip1 = new EnemySpaceShip("Heart of Gold", 5, 1, 1);
 
 spaceShip1.getshieldStrength();
-spaceShip1.getWeaponPower();
 spaceShip1.getManaAmount();
 
 document.getElementById("name").innerHTML = ("<em>" + spaceShip1.nazev + "</em>");
 
-const enemyShip1 = new EnemySpaceShip("Star Destroyer", 8, 1, 4);
+const enemyShip1 = new EnemySpaceShip("Star Destroyer", 5, 1, 1);
 
 enemyShip1.getshieldStrength();
-enemyShip1.getWeaponPower();
 enemyShip1.getManaAmount();
 
 document.getElementById("enemyName").innerHTML = ("<em>" + enemyShip1.nazev + "</em>");
 
-//<------------------------------Konec vyvolávání----------------------------------->
-//<------------------------------Konec hlavní stránky------------------------------->
+//<------------------------------Konec vyvolavani----------------------------------->
+//<------------------------------Konec hlavni stranky------------------------------->
 
 
 
@@ -221,6 +229,13 @@ function jaJaAJenomJa() {
 
 
 //<--------------------------Canvas------------------------------------------------->
+
+var canvasWidth, canvasHeight;
+
+canvasWidth = window.innerWidth / 2.048;
+canvasHeight = window.innerHeight / 1.44791666666666666667;
+
+//var side;
 
 var pause = false;
 var pauseAccomplished = true;
@@ -272,28 +287,28 @@ var meteoriteCreation4 = [true];
 function startGame() {
     myGameArea.start();
 
-    mySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodHodna.png", 150, 225, "image", spaceShip1);
-    enemySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodZla.png", 600, 225, "image", enemyShip1);
+    mySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodHodna.png", 150, canvasHeight / 2, "image", spaceShip1);
+    enemySpaceShip = new component(30, 30, "IMAGES/VesmirnaLodZla.png", canvasWidth - 150, canvasHeight / 2, "image", enemyShip1);
 
-    levaStena = new component(100, 650, "red",-100, -100, "object");
-    horniStena = new component(1000, 100, "red", -100, -100, "object");
-    pravaStena = new component(100, 650, "red", 770, -100, "object");
-    spodniStena = new component(1000, 150, "red", -100, 470, "object");
+    levaStena = new component(100, canvasHeight + 170, "red",-100, -100, "object");
+    horniStena = new component(canvasWidth + 250, 100, "red", -100, -100, "object");
+    pravaStena = new component(100, canvasHeight + 170, "red", canvasWidth + 20, -100, "object");
+    spodniStena = new component(canvasWidth + 250, 150, "red", -100, canvasHeight + 20, "object");
 
     strelaPole[n] = new component(5,5,"yellow", -200, -200, "object");
     strelaShipPole[m] = new component(5,5,"red",-300, -300, "object");
 
-    meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
-    meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
-    meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
-    meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+    meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", canvasHeight / 2, -50, "image");
+    meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", canvasHeight + 50, canvasWidth / 2, "image");
+    meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", canvasHeight / 2, canvasWidth + 50, "image");
+    meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, canvasWidth / 2, "image");
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 750;
-        this.canvas.height = 450;
+        this.canvas.width = canvasWidth;
+        this.canvas.height = canvasHeight;
         this.context = this.canvas.getContext("2d");
         document.getElementById("spaceShipCanvas").insertBefore(this.canvas, document.getElementById("spaceShipCanvas").childNodes[0]);
         this.frameNo = 0;
@@ -360,6 +375,20 @@ function component(width, height, color, x, y, type, shipName) {
         var othertop = otherobj.y;
         var otherbottom = otherobj.y + (otherobj.height);
         var crash = true;
+/*/////////////////////////////////////////////////////////////////////////////////////
+        if (mybottom > othertop) {
+            side = "bottom";
+        }
+        else if (mytop < otherbottom) {
+            side = "top";
+        }
+        else if (myright > otherleft) {
+            side = "right";
+        }
+        else if (myleft < otherright) {
+            side = "left";
+        }
+/*/////////////////////////////////////////////////////////////////////////////////////
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
         }
@@ -384,35 +413,155 @@ function component(width, height, color, x, y, type, shipName) {
 }
 
 function checkCollisionWithMySpaceShip(shoot) {
-    if (shoot == spaceShip1) {
-        for (let i = 0; i <= n; i++) {
-            let bullet = strelaPole[i];
-            if (bullet.x < (mySpaceShip.x + mySpaceShip.width - 15) &&
-                bullet.x + bullet.width > (mySpaceShip.x - 12) &&
-                bullet.y < mySpaceShip.y + (mySpaceShip.height - 15) &&
-                bullet.y + bullet.height > (mySpaceShip.y - 10)) {
-                    strelaPole.splice(i, 1); // Odstranění střely ze seznamu
-                    n--; // Snížení počtu střel v poli
-                    return true;
+    switch (shoot) {
+        case spaceShip1:
+            for (let i = 0; i <= n; i++) {
+                let bullet = strelaPole[i];
+                if (bullet.x < (mySpaceShip.x + mySpaceShip.width - 15) &&
+                    bullet.x + bullet.width > (mySpaceShip.x - 12) &&
+                    bullet.y < mySpaceShip.y + (mySpaceShip.height - 15) &&
+                    bullet.y + bullet.height > (mySpaceShip.y - 10)) {
+                        strelaPole.splice(i, 1); // Odstraneni strely ze seznamu
+                        n--; // Snizeni poctu strel v poli
+                        return true;
+                }
             }
-        }
-        return false;
-    }
-    else if (shoot == enemyShip1) {
-        for (let i = 0; i <= m; i++) {
-            let bullet = strelaShipPole[i];
-            if (bullet.x < (enemySpaceShip.x + enemySpaceShip.width - 15) &&
-                bullet.x + bullet.width > (enemySpaceShip.x - 12) &&
-                bullet.y < enemySpaceShip.y + (enemySpaceShip.height - 15) &&
-                bullet.y + bullet.height > (enemySpaceShip.y - 10)) {
-                    strelaShipPole.splice(i, 1);
-                    m--;
-                    return true;
+            return false;
+        case enemyShip1:
+            for (let i = 0; i <= m; i++) {
+                let bullet = strelaShipPole[i];
+                if (bullet.x < (enemySpaceShip.x + enemySpaceShip.width - 15) &&
+                    bullet.x + bullet.width > (enemySpaceShip.x - 12) &&
+                    bullet.y < enemySpaceShip.y + (enemySpaceShip.height - 15) &&
+                    bullet.y + bullet.height > (enemySpaceShip.y - 10)) {
+                        strelaShipPole.splice(i, 1);
+                        m--;
+                        return true;
+                }
             }
-        }
-        return false;
+            return false;
+        case meteorite:
+            for (let i = 0; i <= numberOfMeteorites; i++) {
+                for (let j = 0; j <= m; j++) {
+                    let bullet = strelaShipPole[j];
+                    if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
+                    bullet.x + bullet.width > (meteorite[i].x - 12) &&
+                    bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
+                    bullet.y + bullet.height > (meteorite[i].y - 10)) {
+                        strelaShipPole.splice(j, 1);
+                        m--;
+                        meteorite.splice(i, 1);
+                        numberOfMeteorites--;
+                        return true;
+                    }
+                }
+                for (let j = 0; j <= n; j++) {
+                    let bullet = strelaPole[j];
+                    if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
+                    bullet.x + bullet.width > (meteorite[i].x - 12) &&
+                    bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
+                    bullet.y + bullet.height > (meteorite[i].y - 10)) {
+                        strelaPole.splice(j, 1);
+                        n--;
+                        meteorite.splice(i, 1);
+                        numberOfMeteorites--;
+                        return true;
+                    }
+                }
+            }
+            break;
+        case meteorite2:
+            for (let i = 0; i <= numberOfMeteorites2; i++) {
+                for (let j = 0; j <= m; j++) {
+                    let bullet = strelaShipPole[j];
+                    if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
+                    bullet.x + bullet.width > (meteorite2[i].x - 12) &&
+                    bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
+                    bullet.y + bullet.height > (meteorite2[i].y - 10)) {
+                        strelaShipPole.splice(j, 1);
+                        m--;
+                        meteorite2.splice(i, 1);
+                        numberOfMeteorites2--;
+                        return true;
+                    }
+                }
+                for (let j = 0; j <= n; j++) {
+                    let bullet = strelaPole[j];
+                    if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
+                    bullet.x + bullet.width > (meteorite2[i].x - 12) &&
+                    bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
+                    bullet.y + bullet.height > (meteorite2[i].y - 10)) {
+                        strelaPole.splice(j, 1);
+                        n--;
+                        meteorite2.splice(i, 1);
+                        numberOfMeteorites2--;
+                        return true;
+                    }
+                }
+            }
+            break;
+        case meteorite3:
+            for (let i = 0; i <= numberOfMeteorites3; i++) {
+                for (let j = 0; j <= m; j++) {
+                    let bullet = strelaShipPole[j];
+                    if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
+                        bullet.x + bullet.width > (meteorite3[i].x - 12) &&
+                        bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
+                        bullet.y + bullet.height > (meteorite3[i].y - 10)) {
+                        strelaShipPole.splice(j, 1);
+                        m--;
+                        meteorite3.splice(i, 1);
+                        numberOfMeteorites3--;
+                        return true;
+                    }
+                }
+                for (let j = 0; j <= n; j++) {
+                    let bullet = strelaPole[j];
+                    if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
+                        bullet.x + bullet.width > (meteorite3[i].x - 12) &&
+                        bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
+                        bullet.y + bullet.height > (meteorite3[i].y - 10)) {
+                        strelaPole.splice(j, 1);
+                        n--;
+                        meteorite3.splice(i, 1);
+                        numberOfMeteorites3--;
+                        return true;
+                    }
+                }
+            }
+            break;
+        case meteorite4:
+            for (let i = 0; i <= numberOfMeteorites4; i++) {
+                for (let j = 0; j <= m; j++) {
+                    let bullet = strelaShipPole[j];
+                    if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
+                        bullet.x + bullet.width > (meteorite4[i].x - 12) &&
+                        bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
+                        bullet.y + bullet.height > (meteorite4[i].y - 10)) {
+                        strelaShipPole.splice(j, 1);
+                        m--;
+                        meteorite4.splice(i, 1);
+                        numberOfMeteorites4--;
+                        return true;
+                    }
+                }
+                for (let j = 0; j <= n; j++) {
+                    let bullet = strelaPole[j];
+                    if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
+                        bullet.x + bullet.width > (meteorite4[i].x - 12) &&
+                        bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
+                        bullet.y + bullet.height > (meteorite4[i].y - 10)) {
+                        strelaPole.splice(j, 1);
+                        n--;
+                        meteorite4.splice(i, 1);
+                        numberOfMeteorites4--;
+                        return true;
+                    }
+                }
+            }
     }
-/*    
+
+/*///////////////////////////////////////////////////////////////////////////////////
     else if (shoot == projectile) {
         for (let i = 0; i <= n; i++) {
             for (let j = 0; j <= m; j++) {
@@ -425,131 +574,12 @@ function checkCollisionWithMySpaceShip(shoot) {
                     m--;
                     strelaPole.splice(i, 1);
                     n--;
-                }
-            }
-        }
-    }
-*/    
-    else if (shoot == meteorite) {
-        for (let i = 0; i <= numberOfMeteorites; i++) {
-            for (let j = 0; j <= m; j++) {
-                let bullet = strelaShipPole[j];
-                if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite[i].x - 12) &&
-                bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite[i].y - 10)) {
-                    strelaShipPole.splice(j, 1);
-                    m--;
-                    meteorite.splice(i, 1);
-                    numberOfMeteorites--;
-                    return true;
-                }
-            }
-            for (let j = 0; j <= n; j++) {
-                let bullet = strelaPole[j];
-                if (bullet.x < (meteorite[i].x + meteorite[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite[i].x - 12) &&
-                bullet.y < meteorite[i].y + (meteorite[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite[i].y - 10)) {
-                    strelaPole.splice(j, 1);
-                    n--;
-                    meteorite.splice(i, 1);
-                    numberOfMeteorites--;
                     return true;
                 }
             }
         }
     }
-    else if (shoot == meteorite2) {
-        for (let i = 0; i <= numberOfMeteorites2; i++) {
-            for (let j = 0; j <= m; j++) {
-                let bullet = strelaShipPole[j];
-                if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite2[i].x - 12) &&
-                bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite2[i].y - 10)) {
-                    strelaShipPole.splice(j, 1);
-                    m--;
-                    meteorite2.splice(i, 1);
-                    numberOfMeteorites2--;
-                    return true;
-                }
-            }
-            for (let j = 0; j <= n; j++) {
-                let bullet = strelaPole[j];
-                if (bullet.x < (meteorite2[i].x + meteorite2[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite2[i].x - 12) &&
-                bullet.y < meteorite2[i].y + (meteorite2[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite2[i].y - 10)) {
-                    strelaPole.splice(j, 1);
-                    n--;
-                    meteorite2.splice(i, 1);
-                    numberOfMeteorites2--;
-                    return true;
-                }
-            }
-        }
-    }
-    else if (shoot == meteorite3) {
-        for (let i = 0; i <= numberOfMeteorites3; i++) {
-            for (let j = 0; j <= m; j++) {
-                let bullet = strelaShipPole[j];
-                if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite3[i].x - 12) &&
-                bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite3[i].y - 10)) {
-                    strelaShipPole.splice(j, 1);
-                    m--;
-                    meteorite3.splice(i, 1);
-                    numberOfMeteorites3--;
-                    return true;
-                }
-            }
-            for (let j = 0; j <= n; j++) {
-                let bullet = strelaPole[j];
-                if (bullet.x < (meteorite3[i].x + meteorite3[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite3[i].x - 12) &&
-                bullet.y < meteorite3[i].y + (meteorite3[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite3[i].y - 10)) {
-                    strelaPole.splice(j, 1);
-                    n--;
-                    meteorite3.splice(i, 1);
-                    numberOfMeteorites3--;
-                    return true;
-                }
-            }
-        }
-    }
-    else if (shoot == meteorite4) {
-        for (let i = 0; i <= numberOfMeteorites4; i++) {
-            for (let j = 0; j <= m; j++) {
-                let bullet = strelaShipPole[j];
-                if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite4[i].x - 12) &&
-                bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite4[i].y - 10)) {
-                    strelaShipPole.splice(j, 1);
-                    m--;
-                    meteorite4.splice(i, 1);
-                    numberOfMeteorites4--;
-                    return true;
-                }
-            }
-            for (let j = 0; j <= n; j++) {
-                let bullet = strelaPole[j];
-                if (bullet.x < (meteorite4[i].x + meteorite4[i].width - 15) &&
-                bullet.x + bullet.width > (meteorite4[i].x - 12) &&
-                bullet.y < meteorite4[i].y + (meteorite4[i].height - 15) &&
-                bullet.y + bullet.height > (meteorite4[i].y - 10)) {
-                    strelaPole.splice(j, 1);
-                    n--;
-                    meteorite4.splice(i, 1);
-                    numberOfMeteorites4--;
-                    return true;
-                }
-            }
-        }
-    }
+/*//////////////////////////////////////////////////////////////////////////////////  
 }
 
 function updatePause() {
@@ -561,7 +591,7 @@ function updatePause() {
             case false:
                 pause = true;
         }
-        pauseAccomplished = false; //toto zajistí, aby se hodnota <<pause>> mohla změnit pouze jednou během jednoho zmáčknutí tlačítka
+        pauseAccomplished = false; //toto zajisti, aby se hodnota <<pause>> mohla zmenit pouze jednou behem jednoho zmacknuti tlacitka
     }
 }
 
@@ -577,449 +607,116 @@ function updateGameArea() {
         document.getElementById("easteregg").style.filter = "blur(0px)";
         document.getElementById("hraciPole").style.filter = "blur(0px)";
         document.getElementById("sipkaDolu").style.filter = "blur(0px)";
-        if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (mySpaceShip.crashWith(enemySpaceShip)) {
+            switch (side) {
+                case "bottom":
+                    mySpaceShip.y -= 3;
+                    break;
+                case "top":
+                    mySpaceShip.y += 3;
+                    break;
+                case "right":
+                    mySpaceShip.x -= 3;
+                    break;
+                case "left":
+                    mySpaceShip.x -= 3;
+            }
         }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.y += 3;
-        }   
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-        }   
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(spodniStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-            enemySpaceShip.x -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(spodniStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-            enemySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (mySpaceShip.crashWith(horniStena)) {
             mySpaceShip.y += 3;
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
+        if (enemySpaceShip.crashWith(horniStena)) {
             enemySpaceShip.y += 3;
-            mySpaceShip.x += 3;
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
+        if (mySpaceShip.crashWith(spodniStena)) {
             mySpaceShip.y -= 3;
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
+        if (enemySpaceShip.crashWith(spodniStena)) {
+            enemySpaceShip.y -= 3;
+        }
+        if (mySpaceShip.crashWith(pravaStena)) {
             mySpaceShip.x -= 3;
         }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y += 3;
+        if (enemySpaceShip.crashWith(pravaStena)) {
+            enemySpaceShip.x -= 3;
         }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(levaStena)) {
+        if (enemySpaceShip.crashWith(levaStena)) {
             enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
+        }
+        if (mySpaceShip.crashWith(levaStena)) {
             mySpaceShip.x += 3;
         }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y -= 3;
+        if (!shotLock) {
+            let a = Math.floor(Math.random()*(600)+0);
+            let b = Math.floor(Math.random()*(600)+0);
+            let c = Math.floor(Math.random()*(600)+0);
+            let d = Math.floor(Math.random()*(600)+0);
+            if (meteoriteCreation[a]) {
+                let x = (Math.random()*(101)-50);
+                numberOfMeteorites += 1;
+                meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
+                meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation2[b]) {
+                let x = (Math.random()*(61)-120);
+                numberOfMeteorites2 += 1;
+                meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
+                meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation3[c]) {
+                let x = (Math.random()*(101)+130);
+                numberOfMeteorites3 += 1;
+                meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
+                meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
+            }
+            if (meteoriteCreation4[d]) {
+                let x = (Math.random()*(61)+60);
+                numberOfMeteorites4 += 1;
+                meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
+                meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
+            }
         }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena) && mySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.x -= 3;
+        for (let i = 0; i <= numberOfMeteorites; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite[i])) {
+                meteoriteCrashing(meteorite[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite[i])) {
+                meteoriteCrashing(meteorite[i], enemyShip1, i);
+            }
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-            mySpaceShip.y += 3;
+        for (let i = 0; i <= numberOfMeteorites2; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite2[i])) {
+                meteoriteCrashing(meteorite2[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite2[i])) {
+                meteoriteCrashing(meteorite2[i], enemyShip1, i);
+            }
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-            mySpaceShip.x += 3;
+        for (let i = 0; i <= numberOfMeteorites3; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite3[i])) {
+                meteoriteCrashing(meteorite3[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite3[i])) {
+                meteoriteCrashing(meteorite3[i], enemyShip1, i);
+            }
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-            mySpaceShip.y -= 3;
+        for (let i = 0; i <= numberOfMeteorites4; i++) {
+            if (meteoriteCrashWith(mySpaceShip, meteorite4[i])) {
+                meteoriteCrashing(meteorite4[i], spaceShip1, i);
+            }
+            else if (meteoriteCrashWith(enemySpaceShip, meteorite4[i])) {
+                meteoriteCrashing(meteorite4[i], enemyShip1, i);
+            }
         }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-            mySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y += 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.x += 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-            mySpaceShip.x -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.y += 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            mySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.y -= 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.y -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena) && enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            mySpaceShip.y -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            mySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(pravaStena) && enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-            mySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena) && mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(levaStena) && enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-            mySpaceShip.x += 3;
-        }
-        else if (enemySpaceShip.crashWith(pravaStena) && mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            enemySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena) && mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(horniStena)) {
-            mySpaceShip.y += 3;
-        }
-        else if (enemySpaceShip.crashWith(horniStena)) {
-            enemySpaceShip.y += 3;
-        }
-        else if (mySpaceShip.crashWith(spodniStena)) {
-            mySpaceShip.y -= 3;
-        }
-        else if (enemySpaceShip.crashWith(spodniStena)) {
-            enemySpaceShip.y -= 3;
-        }
-        else if (mySpaceShip.crashWith(pravaStena)) {
-            mySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(pravaStena)) {
-            enemySpaceShip.x -= 3;
-        }
-        else if (enemySpaceShip.crashWith(levaStena)) {
-            enemySpaceShip.x += 3;
-        }
-        else if (mySpaceShip.crashWith(levaStena)) {
-            mySpaceShip.x += 3;
-        }
-        let a = Math.floor(Math.random()*(600)+0);
-        let b = Math.floor(Math.random()*(600)+0);
-        let c = Math.floor(Math.random()*(600)+0);
-        let d = Math.floor(Math.random()*(600)+0);
-        if (meteoriteCreation[a]) {
-            let x = (Math.random()*(101)-50);
-            numberOfMeteorites += 1;
-            meteorite[numberOfMeteorites] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, -50, "image");
-            meteoriteAngle[numberOfMeteorites] = x * Math.PI / 180;
-        }
-        if (meteoriteCreation2[b]) {
-            let x = (Math.random()*(61)-120);
-            numberOfMeteorites2 += 1;
-            meteorite2[numberOfMeteorites2] = new component(25.86666666, 18, "IMAGES/meteorite.png", 800, 225, "image");
-            meteoriteAngle2[numberOfMeteorites2] = x * Math.PI / 180;
-        }
-        if (meteoriteCreation3[c]) {
-            let x = (Math.random()*(101)+130);
-            numberOfMeteorites3 += 1;
-            meteorite3[numberOfMeteorites3] = new component(25.86666666, 18, "IMAGES/meteorite.png", 375, 500, "image");
-            meteoriteAngle3[numberOfMeteorites3] = x * Math.PI / 180;
-        }
-        if (meteoriteCreation4[d]) {
-            let x = (Math.random()*(61)+60);
-            numberOfMeteorites4 += 1;
-            meteorite4[numberOfMeteorites4] = new component(25.86666666, 18, "IMAGES/meteorite.png", -50, 225, "image");
-            meteoriteAngle4[numberOfMeteorites4] = x * Math.PI / 180;
-        }
-    for (let i = 0; i <= numberOfMeteorites; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite[i])) {
-            meteoriteCrashing(meteorite[i], spaceShip1, i);
-        }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite[i])) {
-            meteoriteCrashing(meteorite[i], enemyShip1, i);
-        }
-    }
-    for (let i = 0; i <= numberOfMeteorites2; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite2[i])) {
-            meteoriteCrashing(meteorite2[i], spaceShip1, i);
-        }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite2[i])) {
-            meteoriteCrashing(meteorite2[i], enemyShip1, i);
-        }
-    }
-    for (let i = 0; i <= numberOfMeteorites3; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite3[i])) {
-            meteoriteCrashing(meteorite3[i], spaceShip1, i);
-        }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite3[i])) {
-            meteoriteCrashing(meteorite3[i], enemyShip1, i);
-        }
-    }
-    for (let i = 0; i <= numberOfMeteorites4; i++) {
-        if (meteoriteCrashWith(mySpaceShip, meteorite4[i])) {
-            meteoriteCrashing(meteorite4[i], spaceShip1, i);
-        }
-        else if (meteoriteCrashWith(enemySpaceShip, meteorite4[i])) {
-            meteoriteCrashing(meteorite4[i], enemyShip1, i);
-        }
-    }
         checkCollisionWithMySpaceShip(meteorite);
         checkCollisionWithMySpaceShip(meteorite2);
         checkCollisionWithMySpaceShip(meteorite3);
         checkCollisionWithMySpaceShip(meteorite4);
-
-//    checkCollisionWithMySpaceShip(projectile);
-
+///////////////////////////////////////////////////////////////////////////////////
+        //checkCollisionWithMySpaceShip(projectile);
+////////////////////////////////////////////////////////////////////////////////////
         enemyShip1.reloadMana();
         spaceShip1.reloadMana();
         enemySpaceShip.shoot(enemyShip1);    
@@ -1091,24 +788,30 @@ function pauseScreen() {
 function meteoriteCrashing(meteoriteType,target,k) {
     switch(meteoriteType) {
         case meteorite[k]:
+            target.silaStitu -= 0.5;
+            target.getshieldStrength();
             meteorite.splice(k,1);
             numberOfMeteorites--;
             break;
         case meteorite2[k]:
+            target.silaStitu -= 0.5;
+            target.getshieldStrength();
             meteorite2.splice(k,1);
             numberOfMeteorites2--;
             break;
         case meteorite3[k]:
+            target.silaStitu -= 0.5;
+            target.getshieldStrength();
             meteorite3.splice(k,1);
             numberOfMeteorites3--;
             break;
         case meteorite4[k]:
+            target.silaStitu -= 0.5;
+            target.getshieldStrength();
             meteorite4.splice(k,1);
             numberOfMeteorites4--;
     }
-    target.silaStitu -= 2;
-    target.getshieldStrength();
-    if (document.getElementById("messageBox").style.display != "block") {
+    if (document.getElementById("messageBox").style.display != "block" && !shotLock) {
         refuelInterval = setInterval(() => {
             document.getElementById("h1").style.visibility = "hidden";
             document.getElementById("messageBox").style.display = "block";
@@ -1120,19 +823,10 @@ function meteoriteCrashing(meteoriteType,target,k) {
             document.getElementById("messageBox").style.display = "none";
         },4000);
     }
-    else {
+    else if (!shotLock) {
         setTimeout(() => {
-            refuelInterval = setInterval(() => {
-                document.getElementById("h1").style.visibility = "hidden";
-                document.getElementById("messageBox").style.display = "block";
-                document.getElementById("messageBox").innerHTML = ("<p>Strike! Meteorite shot <em>" + target.nazev + "</em>.</p>");
-            },300);
-            setTimeout(() => {
-                clearInterval(refuelInterval);
-                document.getElementById("h1").style.visibility = "visible";
-                document.getElementById("messageBox").style.display = "none";
-            },4000);
-        }, 4000);
+            meteoriteCrashing(meteoriteType,target,k);
+        }, 500);
     }
     
 }
@@ -1202,41 +896,41 @@ function position(ship) {
 }
 
 //<------------------AI potahala:--------------------------------------------------->
-// Zde je třeba uvést, že ne vše v této části kódu udělala AI, pouze asi 2/3!!!
+// Zde je treba uvest, ze ne vse v teto casti kodu udelala AI, pouze asi 2/3!!!
 
-// Proměnná sledující, zda již byla provedena střelba
+// Promenna sledujici, zda jiz byla provedena strelba
 var shotFired = false;
 var shotFired2 = false;
 
-// Funkce pro střelbu
+// Funkce pro strelbu
 function attack(attacker) {
-    if (!shotFired) { // Pokud je false (žádná střelba není provedena)
+    if (!shotFired) { // Pokud je false (zadna strelba neni provedena)
         n += 1;
         strelaPole[n] = new component(5, 5, "yellow", attacker.x, attacker.y);
         strelaAngle[n] = enemySpaceShip.angle;
-        shotFired = true; // Nastavíme na true (střelba provedena)
+        shotFired = true; // Nastavime na true (strelba provedena)
     }
 }
 
 function attack2(attacker) {
-    if (!shotFired2) { // Pokud je false (žádná střelba není provedena)
+    if (!shotFired2) { // Pokud je false (zadna strelba neni provedena)
         m += 1;
         strelaShipPole[m] = new component(5, 5, "red", attacker.x, attacker.y);
         strelaShipAngle[m] = mySpaceShip.angle;
-        shotFired2 = true; // Nastavíme na true (střelba provedena)
+        shotFired2 = true; // Nastavime na true (strelba provedena)
     }
 }
 
-// Funkce pro obsluhu události stisknutí klávesy
+// Funkce pro obsluhu udalosti stisknuti klavesy
 document.addEventListener("keydown", function(event) {
     if (event.keyCode === 32) {
-        updatePause(); //když se zmáčkne mezerník, tak se spustí tato fce, která změní hodnotu <<pause>>
+        updatePause(); //kdyz se zmackne mezernik, tak se spusti tato fce, ktera zmeni hodnotu <<pause>>
     }
-    if (event.keyCode === 76 && enemyShip1.mana > 0.2) { // Klávesa L
+    if (event.keyCode === 76 && enemyShip1.mana > 0.2 && !shotLock) { // Klavesa L
         attack(enemySpaceShip);
         enemyShip1.mana -= 0.2;
     }
-    if (event.keyCode === 71 && spaceShip1.mana > 0.2) { // Klávesa G
+    if (event.keyCode === 71 && spaceShip1.mana > 0.2 && !shotLock) { // Klavesa G
         attack2(mySpaceShip);
         spaceShip1.mana -= 0.2;
     }
@@ -1246,18 +940,18 @@ document.addEventListener("keyup", function(event) {
     if (event.keyCode === 32) {
         pauseAccomplished = true
     }
-    if (event.keyCode === 76) { // Klávesa L
-        shotFired = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
+    if (event.keyCode === 76) { // Klavesa L
+        shotFired = false; // Nastavime zpet na false (povolime opetovnou strelbu)
     }
-    if (event.keyCode === 71) { // Klávesa G
-        shotFired2 = false; // Nastavíme zpět na false (povolíme opětovnou střelbu)
+    if (event.keyCode === 71) { // Klavesa G
+        shotFired2 = false; // Nastavime zpet na false (povolime opetovnou strelbu)
     }
 });
 
 //<------------------AI dotahala---------------------------------------------------->
 
 //<--------------------Konec canvasu------------------------------------------------>
-//Přidej: střet dvou střel; střet lodě s meteoritem; střet lodí; powerupy; ???single-/multiplayer???; guidebook?; srdce jako životy; 
+//Pridej: stret dvou strel; stret lodi; powerupy; ???single-/multiplayer???; guidebook?
 
 /*
 git add --all

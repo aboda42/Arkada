@@ -5,6 +5,7 @@
 }
 
 body {
+    align-items: center;
     text-align: center;
     font-family: "Pixelify Sans";
     background-image: url('../IMAGES/pozadiVesmir.webp');
@@ -97,7 +98,7 @@ footer a {
 }
 
 #hraciPole {
-    margin-top: 8vh;
+    margin-top: 5vh;
     order:2;
     flex:2;
 }
